@@ -1,0 +1,6 @@
+filenames: name{date}{.py}
+date: {Y}{M}{D} 20130424
+program: the folder with documented sourcecode
+text: the folder with text
+todo: the folder of todo things and ideas
+sources: the folder with sources 
