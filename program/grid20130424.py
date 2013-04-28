@@ -19,11 +19,22 @@ def pmt(t):
 
 #P(V^t_(x,y)|O^t_(x,y))
 def observation_model(t, x, y):
-	return 1 
+	return  observation_matrix[V[t][x][y]][O[t][x][y]]
 
 #P(O^t_(x,y)|M^t O^(t-1))
 def dynamic_object_model(t, x, y):
-	return 1 
+	result = 0
+	for x in xrange(X):
+		for y in xrange(Y):
+			result_partial = 0
+			x_prev = gaze_position[t-1][0]
+			y_prev = gaze_position[t-1][1]
+ 			if x == x_prev && y == y_prev:
+				result_partial = transition_matrix[O[t][x][y]][O[t-1][x][y]]
+			else:
+				result_partial = numpy.random.uniform()
+
+			result = result + numpy.random.uniform()*result_partial
 
 #P(OVM)
 def joint_distribution():
@@ -46,7 +57,7 @@ def joint_distribution():
 #P(O^t|V^(1->t) M^(1->t)
 def knowledge_update():
 	start_ = datetime.now()
-	result = 1
+	result = 0
 	t = times
 	#for xrange(X):
 		#for y in xrange(Y):
