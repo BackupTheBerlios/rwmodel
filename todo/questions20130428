@@ -1,0 +1,9 @@
+in function knowledge update:
+	A(x,y) is the subset of cells (x',y') of the grid that are antecedent of the cell (x,y) by the current eye movement
+	?: How big the subset could be?
+	?: i.e. how many cells do I see?
+	S: my simplification, I take only one cell at the time as antecedent but I work with a subset
+
+in function occupancy_vs:
+	?: the probabilities are quite small
+	S: the module bigfloat 

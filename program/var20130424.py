@@ -2,10 +2,20 @@
 #! python
 
 #defines grid variables
-times = 5 #number of timestamps
-X = 5 #width of grid
-Y = 4 #height of grid
-O = [[[0 for x in xrange(X)] for y in xrange(Y)] for t in xrange(times)]#objects
-V = [[[0 for x in xrange(X)] for y in xrange(Y)] for t in xrange(times)]#visual
-M = [0 for t in xrange(times)]#past eye movement information
+objects = 2 #number of objects
+times = 4 #number of timestamps
+X = 2 #width of grid
+Y = 3 #height of grid
+
+#O[t][x][y]
+O = [[[0 for x in xrange(Y)] for y in xrange(X)] for t in xrange(times+1)]#objects
+#V[t][x][y]
+V = [[[0 for x in xrange(Y)] for y in xrange(X)] for t in xrange(times+1)]#visual
+#M[t]
+M = [(0,0) for t in xrange(times+1)]#past eye movement information
+#the inference over the whole grid
+grid_inference = [[0 for x in xrange(Y)] for y in xrange(X)]
+
+o1=0.1
+o2=0.05
 
