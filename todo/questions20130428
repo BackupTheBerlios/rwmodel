@@ -2,7 +2,13 @@ in function knowledge update:
 	A(x,y) is the subset of cells (x',y') of the grid that are antecedent of the cell (x,y) by the current eye movement
 	?: How big the subset could be?
 	?: i.e. how many cells do I see?
-	S: my simplification, I take only one cell at the time as antecedent but I work with a subset
+	S: my simplification, I take only one cell at the time as antecedent but I work with a subset	
+	?: when does it stop
+	?:the sum over O^t-1_A(x,y)
+	?:how to make it recursive
+	?:A(x,y) is the subset of cells that the eye_gaze is pointed at during the movement
+
+
 
 in function occupancy_vs:
 	?: the probabilities are quite small
@@ -33,3 +39,10 @@ in function knowledge_update()
 
 in both function knowledge_update and joint_distribution
 	? how to make calculation work - underflow
+
+in var file
+	?: figure out the data fitting
+	?: figure out the way to calculate it (many zeros)
+
+all files
+	?: create test module file in order to test the basic functionality of the programming block
