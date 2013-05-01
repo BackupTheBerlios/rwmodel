@@ -17,7 +17,8 @@ V = [[[0 for x in xrange(Y)] for y in xrange(X)] for t in xrange(times+1)]#visua
 M = [(0,0) for t in xrange(times+1)]#past eye movement information
 
 #gaze position through the experiment
-gaze_position = [(0,0) for t in xrange(times+1)]
+gaze_position = [[(0,0)] for t in xrange(times)]
+
 
 #the inference over the whole grid
 grid_inference = [[0 for x in xrange(Y)] for y in xrange(X)]

@@ -29,6 +29,7 @@ in function knowledge_update()
 	?: when does it stop
 	?:the sum over O^t-1_A(x,y)
 	?:how to make it recursive
+	?:A(x,y) is the subset of cells that the eye_gaze is pointed at during the movement
 
 in both function knowledge_update and joint_distribution
 	? how to make calculation work - underflow

@@ -57,18 +57,32 @@ def joint_distribution():
 #P(O^t|V^(1->t) M^(1->t)
 def knowledge_update():
 	start_ = datetime.now()
-	result = 0
 	t = times
-	#for xrange(X):
-		#for y in xrange(Y):
-	#fixed x and y
-	dynamic_object_model(t,x,y)*
-	knowledge_update_recursive(t,x,y)
+	for x in xrange(X):
+		for y in xrange(Y):
+			#fixed x and y
+			grid_inference[x][y] = knowledge_update_recursive(t,x,y)
 
 
 	end_ = datetime.now()
 	print 'Elapsed time is ',(end_-start_).microseconds
-	return result
 	
 def knowledge_update_recursive(t,x,y):
+	#P(O^1_(x,y)|V^1 M^1) 
+	if t == 2:
+		return 1
 	
+	result = 1
+	for i in xrange(len(gaze_position[t])):
+		result = result 
+		* knowledge_update_recursive
+		(t-1,gaze_position[t][i][0], gaze_position[t][i][1])
+	
+	result2 = 0
+	for i in xrange(len(gaze_position[t])):
+		result2 = result2+ 
+		dynamic_object_model(t, gaze_position[t][i][0], gaze_position[t][i][1])
+		* result
+	
+	result2 = result2*observation_model(t,x,y)
+	return result2
