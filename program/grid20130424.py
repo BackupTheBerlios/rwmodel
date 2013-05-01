@@ -68,21 +68,23 @@ def knowledge_update():
 	print 'Elapsed time is ',(end_-start_).microseconds
 	
 def knowledge_update_recursive(t,x,y):
-	#P(O^1_(x,y)|V^1 M^1) 
-	if t == 2:
-		return 1
-	
+	#P(O^1_(x,y)|V^1 M^1) value at the end of recursion
 	result = 1
-	for i in xrange(len(gaze_position[t])):
-		result = result 
-		* knowledge_update_recursive
-		(t-1,gaze_position[t][i][0], gaze_position[t][i][1])
+	print "Gaze position:", gaze_position
+	print "Time:", t, "end"
+	print "Gaze position length:", len(gaze_position[t])
+		
+	if t != 2:
+		for i in xrange(len(gaze_position[t])):
+			result = result*\
+			knowledge_update_recursive(t-1,gaze_position[t][i][0], gaze_position[t][i][1])
+		
+	print "Result:", result	
 	
 	result2 = 0
 	for i in xrange(len(gaze_position[t])):
-		result2 = result2+ 
-		dynamic_object_model(t, gaze_position[t][i][0], gaze_position[t][i][1])
-		* result
+		result2 = result2+\
+		dynamic_object_model(t, gaze_position[t][i][0], gaze_position[t][i][1])*result
 	
 	result2 = result2*observation_model(t,x,y)
-	return result2
+	print "Result2:", result2
