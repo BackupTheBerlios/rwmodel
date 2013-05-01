@@ -24,3 +24,11 @@ in function dynamic_object_model:
 in function dynamic_object_model:
 	?: how many antecedent positions?
 	S: I take just one
+
+in function knowledge_update()
+	?: when does it stop
+	?:the sum over O^t-1_A(x,y)
+	?:how to make it recursive
+
+in both function knowledge_update and joint_distribution
+	? how to make calculation work - underflow

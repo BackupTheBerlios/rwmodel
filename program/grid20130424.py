@@ -61,10 +61,14 @@ def knowledge_update():
 	t = times
 	#for xrange(X):
 		#for y in xrange(Y):
-				
+	#fixed x and y
+	dynamic_object_model(t,x,y)*
+	knowledge_update_recursive(t,x,y)
 
 
 	end_ = datetime.now()
 	print 'Elapsed time is ',(end_-start_).microseconds
 	return result
+	
+def knowledge_update_recursive(t,x,y):
 	
