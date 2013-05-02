@@ -6,12 +6,6 @@ in function knowledge update:
 	?:the sum over O^t-1_A(x,y)
 	?:A(x,y) is the subset of cells that the eye_gaze is pointed at during the movement
 
-
-
-in function occupancy_vs:
-	?: the probabilities are quite small
-	S: the module bigfloat
-
 in function pmt:
 	The distribution over the eye movement can be chosen arbitrarily as the results of inference do not depend on it
 	?: the space of all possible eye movements is given (x-x', y-y'), where (x,y) is an actual position and (x',y') is the antecendent position
@@ -22,7 +16,6 @@ in function pmt:
 in function dynamic_object_model:
 	P((p,theta)|(x,y)) is a uniform distribution on the inverse image of (p,theta) by eye movement M^t
 	?: Is it enough just to generate numpy.random.uniform() or does the "on the inverse image of (p,theta) play any important role in the generation?
-	?: numpy.random.uniform(min, max, size), where size should be the number of cells?
 	S: the simplification by generating just a uniform distribution
 
 in both function knowledge_update and joint_distribution
@@ -32,7 +25,4 @@ in both function knowledge_update and joint_distribution
 
 in var file
 	?: figure out the data fitting
-	?: figure out the way to calculate it (many zeros)
 
-all files
-	?: create test module file in order to test the basic functionality of the programming block
