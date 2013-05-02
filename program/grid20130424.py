@@ -33,12 +33,13 @@ def dynamic_object_model(t, x, y):
 			result_partial = 0
 			x_prev = gaze_position[t-1][0]
 			y_prev = gaze_position[t-1][1]
- 			if x == x_prev && y == y_prev:
+ 			if x == x_prev  and y == y_prev:
 				result_partial = transition_matrix[O[t][x][y]][O[t-1][x][y]]
 			else:
 				result_partial = numpy.random.uniform()
 
 			result = result + numpy.random.uniform()*result_partial
+	return result
 
 #P(OVM)
 def joint_distribution():
@@ -74,21 +75,22 @@ def knowledge_update():
 def knowledge_update_recursive(t,x,y):
 	#P(O^1_(x,y)|V^1 M^1) value at the end of recursion
 	result = 1
-	print "Gaze position:", gaze_position
+	print "antecedent_cells:", antecedent_cells
 	print "Time:", t, "end"
-	print "Gaze position length:", len(gaze_position[t])
+	print "antecedent_cells length:", len(antecedent_cells[t])
 		
 	if t != 2:
-		for i in xrange(len(gaze_position[t])):
+		for i in xrange(len(antecedent_cells[t])):
 			result = result*\
-			knowledge_update_recursive(t-1,gaze_position[t][i][0], gaze_position[t][i][1])
+			knowledge_update_recursive(t-1,antecedent_cells[t][i][0],antecedent_cells[t][i][1])
 		
 	print "Result:", result	
 	
 	result2 = 0
-	for i in xrange(len(gaze_position[t])):
+	for i in xrange(len(antecedent_cells[t])):
 		result2 = result2+\
-		dynamic_object_model(t, gaze_position[t][i][0], gaze_position[t][i][1])*result
+		dynamic_object_model(t, antecedent_cells[t][i][0], antecedent_cells[t][i][1])*result
 	
 	result2 = result2*observation_model(t,x,y)
 	print "Result2:", result2
+	return result2

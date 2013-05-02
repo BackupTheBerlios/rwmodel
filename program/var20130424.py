@@ -18,8 +18,11 @@ V = [[[0 for x in xrange(Y)] for y in xrange(X)] for t in xrange(times+1)]#visua
 #M[t]
 M = [(0,0) for t in xrange(times+1)]#past eye movement information
 
-#gaze position through the experiment
-gaze_position = [[(0,0)] for t in xrange(times)]
+#gaze_position
+gaze_position = [(0,0) for t in xrange(times+1)]
+
+#A(x,y) subset of antecedent cells foreach time in experiment
+antecedent_cells = [[(0,0)] for t in xrange(times+1)]
 
 
 #the inference over the whole grid
