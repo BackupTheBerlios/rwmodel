@@ -1,5 +1,9 @@
 #-*- coding: utf-8 -*-
 #! python
+#name: gridmodule
+#author: Erik Lux
+#date: 20130424
+#purpose: occupancy grid
 import os
 os.chdir('/home/luxe/Tracking/program')
 import imp

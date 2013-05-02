@@ -1,7 +1,9 @@
 #-*- coding: utf-8 -*-
 #! python
-
-#defines grid variables
+#name: varmodule
+#author: Erik Lux
+#date: 20130424
+#purpose: define grid variables
 objects = 2 #number of objects
 times = 4 #number of timestamps
 X = 2 #width of grid
