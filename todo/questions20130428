@@ -1,11 +1,3 @@
-in function knowledge update:
-	A(x,y) is the subset of cells (x',y') of the grid that are antecedent of the cell (x,y) by the current eye movement
-	?: How big the subset could be?
-	?: i.e. how many cells do I see?
-	?: when does it stop
-	?:the sum over O^t-1_A(x,y)
-	?:A(x,y) is the subset of cells that the eye_gaze is pointed at during the movement
-
 in function pmt:
 	The distribution over the eye movement can be chosen arbitrarily as the results of inference do not depend on it
 	?: the space of all possible eye movements is given (x-x', y-y'), where (x,y) is an actual position and (x',y') is the antecendent position
@@ -18,11 +10,25 @@ in function dynamic_object_model:
 	?: Is it enough just to generate numpy.random.uniform() or does the "on the inverse image of (p,theta) play any important role in the generation?
 	S: the simplification by generating just a uniform distribution
 
-in both function knowledge_update and joint_distribution
-	? how to make calculation work - underflow
-	? the probabilieties are quite small
-	? the module bigfloat
+in funcions occupancy_vs and occupancy_vs_targets
+  update to the precise value of probability
 
+new
+......................................
 in var file
-	?: figure out the data fitting
+	?: the O and V input variables relationship
+	 -> when do you tell, the object was perceived
+  ?:which ones are targets?
+in grid file
+  ?:do antecedent_cells also mean the gaze_position
+  ?:knowledge_uptade, do I update only one cell at the time - is it really that simple?
+Colas
+  1/ I can try to connect you to Francis Colas who continued my work after I finished my post doc (he's the main author of the article and made a post doc on this subject after me).
+  2/ If Francis isn't responding, I can have a look on my research materials and try to answer your question next week
+
+  Concerning the source code, I be delighted to give it to  you, but I'm not the owner of it, even if I'm the main author. The copyright is owned by the "College de France". Moreover Francis would probably have enhanced it and I only have the version I developed during my post doc.
+
+in dynamic target model
+  |epsylon*(T^(t-1),M^t)| a size of the set of the polar positions(ro, fi) that are in relation with T^(t-1)_i by the eye movement M^t. This set can be obtained by sampling like in a dynamic model
+  distance in milimeters between T^t_i and (x,y) d(T^t_i, (x,y))
 

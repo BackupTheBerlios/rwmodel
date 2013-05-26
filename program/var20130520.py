@@ -1,6 +1,7 @@
 # 2013.05.26 14:27:00 CEST
 import csv
 import os
+import numpy
 
 def roundto(angle, precision = 0.5):
     correction = 0.5 if angle > 0 else -0.5
@@ -8,7 +9,8 @@ def roundto(angle, precision = 0.5):
 
 
 objects = 8
-antecedent = 1
+targets = 4
+antecedent =2 
 X = 30
 Y = 30
 bound1 = 0
@@ -25,7 +27,11 @@ with open('dataset_Erik.csv', 'rb') as csvfile:
 times = len(rows) - 1
 O = [ [ [ 0 for x in xrange(Y) ] for y in xrange(X) ] for t in xrange(times + 1) ]
 V = [ [ [ 0 for x in xrange(Y) ] for y in xrange(X) ] for t in xrange(times + 1) ]
+T = [[ (0,0) for i in xrange(targets)] for t in xrange(times +1)]
+
 M = [ (0, 0) for t in xrange(times + 1) ]
+I= [[[numpy.random.uniform() for x in xrange(Y)] for y in xrange(X)] for t in xrange(times +1)] 
+
 gaze_position = [ (0, 0) for t in xrange(times + 1) ]
 antecedent_cells = [ [(0, 0)] for t in xrange(times + 1) ]
 grid_inference = [ [ 0 for x in xrange(Y) ] for y in xrange(X) ]
