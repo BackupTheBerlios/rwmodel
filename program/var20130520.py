@@ -31,7 +31,7 @@ T = [[ (0,0) for i in xrange(targets)] for t in xrange(times +1)]
 
 M = [ (0, 0) for t in xrange(times + 1) ]
 I= [[[numpy.random.uniform() for x in xrange(Y)] for y in xrange(X)] for t in xrange(times +1)] 
-
+I_T = [[numpy.random.uniform()  for i in xrange(targets)] for t in xrange(times+1)] #inference targets
 gaze_position = [ (0, 0) for t in xrange(times + 1) ]
 antecedent_cells = [ [(0, 0)] for t in xrange(times + 1) ]
 grid_inference = [ [ 0 for x in xrange(Y) ] for y in xrange(X) ]
