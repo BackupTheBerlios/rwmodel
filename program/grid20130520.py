@@ -10,11 +10,12 @@ import imp
 mod = imp.load_source('vars', 'var20130520.py')
 from vars import *
 from datetime import datetime
-
+from bigfloat import *
 #P(O^0_(x,y)) foreach (x,y)
 def occupancy_vs():
-	oxy= objects /float(X*Y) #an arbitrary prior on the occupancy_vs
-	return oxy**(X*Y)
+  with precision(100):
+	  oxy= (objects /float(X*Y))**(X*Y) #an arbitrary prior 
+  return oxy
 
 def occupancy_vs_targets():
   oxy = targets /float(X*Y)
@@ -90,21 +91,24 @@ def joint_distribution_targets():
 
 #P(OVM)
 def joint_distribution():
-	start_ = datetime.now()
-	result2 =1 
-	for t in range(1,times+1):
-		
-		result= 1
-		for x in xrange(X):
-			for y in xrange(Y):
-				result = result * ( observation_model(t,x,y)
-					*dynamic_object_model(t,x,y))		
-		result2 = result2 * pmt(t) * result 
-		
-	result2 = occupancy_vs()*result2
-	end_ = datetime.now()
-	print 'Elapsed time is ',(end_-start_).microseconds
-	return result2
+  start_ = datetime.now()
+  result =1
+  for t in range(1,times+1):
+    print 't: ', t
+    result1= 1
+    for x in xrange(X):
+      for y in xrange(Y):
+        result1*= ( observation_model(t,x,y)\
+        *dynamic_object_model(t,x,y))		
+    
+    with precision(100):
+      result *= pmt(t) * result1
+  
+  with precision(100):	
+	  result *= occupancy_vs()
+  end_ = datetime.now()
+  print 'Elapsed time is ',(end_-start_).microseconds
+  return result2
 
 #P(O^t|V^(1->t) M^(1->t)
 def knowledge_update():

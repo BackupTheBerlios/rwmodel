@@ -22,6 +22,8 @@ in var file
 in grid file
   ?:do antecedent_cells also mean the gaze_position
   ?:knowledge_uptade, do I update only one cell at the time - is it really that simple?
+  ?:inference of targets summation over O^t (depends on the inference over objects
+
 Colas
   1/ I can try to connect you to Francis Colas who continued my work after I finished my post doc (he's the main author of the article and made a post doc on this subject after me).
   2/ If Francis isn't responding, I can have a look on my research materials and try to answer your question next week
