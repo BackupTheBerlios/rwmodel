@@ -33,6 +33,7 @@ def oku():
     for x in xrange(X):
       for y in xrange(Y):
         I[t][x][y] = observation_model(t,x,y)*suma
+        
     
     print 't: ',t, 'I at gaze_position:',I[t][x][y]
   return result
