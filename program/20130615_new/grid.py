@@ -1,3 +1,4 @@
+from __future__ import division
 #-*- coding: utf-8 -*-
 #! python
 #name: gridmodule
@@ -13,8 +14,7 @@ from datetime import datetime
 from bigfloat import *
 #P(O^0_(x,y)) foreach (x,y)
 def occupancy_vs():
-  with precision(100):
-	  oxy= (objects /float(X*Y))**(X*Y) #an arbitrary prior 
+  oxy= (BigFloat(objects /float(X*Y))**(X*Y)) #an arbitrary prior 
   return oxy
 
 def occupancy_vs_targets():
@@ -31,19 +31,21 @@ def observation_model(t, x, y):
 
 #P(O^t_(x,y)|M^t O^(t-1))
 def dynamic_object_model(t, x, y):
-	result = 0
-	for x in xrange(X):
-		for y in xrange(Y):
-			result_partial = 0
-			x_prev = gaze_position[t-1][0]
-			y_prev = gaze_position[t-1][1]
- 			if x == x_prev  and y == y_prev:
-				result_partial = transition_matrix[O[t][x][y]][O[t-1][x][y]]
-			else:
-				result_partial = numpy.random.uniform()
+  result = 0
+  for x in xrange(X):
+    for y in xrange(Y):
+      result_partial = 0
+      x_prev = gaze_position[t-1][0]
+      y_prev = gaze_position[t-1][1]
+      if x == x_prev  and y == y_prev:
+        result_partial = transition_matrix[O[t][x][y]][O[t-1][x][y]]
+      else:
+        result_partial = numpy.random.uniform()
+      result+= numpy.random.uniform()*result_partial
+      
+      #print 'partial:', numpy.random.uniform()*result_partial, 'sum:', result
 
-			result = result + numpy.random.uniform()*result_partial
-	return result
+  return result
 
 #d((x,y),T^t_i) distance between target and (x,y)
 def distance(t,i,x,y):

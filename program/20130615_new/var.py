@@ -21,8 +21,7 @@ def readcsv():
       antecedent_list = []
       for j in range(x - x1, x + x2):
           for i in range(y - y1, y + y2):
-              if j != x or i != y:
-                  antecedent_list.append((j, i))
+            antecedent_list.append((j, i))
 
 
       antecedent_cells[t] = antecedent_list
@@ -37,7 +36,7 @@ def readcsv():
 
 objects = 8
 targets = 4
-antecedent =2 
+antecedent =1 
 X = 30
 Y = 30
 bound1 = 0
