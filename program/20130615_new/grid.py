@@ -68,5 +68,3 @@ def dynamic_target_model(t,i):
       result *= target_observation_model(t,i, x,y)
 
   return result * setsize
-
-
