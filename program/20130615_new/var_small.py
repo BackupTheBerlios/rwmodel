@@ -2,10 +2,8 @@
 import csv
 import os
 import numpy
-import imp
+from  SmallFloat_copy import Small
 
-imp.load_source('small', 'SmallFloat.py')
-from small import *
 def roundto(angle, precision = 0.5):
     correction = 0.5 if angle > 0 else -0.5
     return int(angle / precision + correction) * precision
@@ -35,7 +33,6 @@ def readcsv():
           y = int(y + 15)
           O[t][x][y] = 1
           V[t][x][y] = 1
-
 
 objects = 8
 targets = 4

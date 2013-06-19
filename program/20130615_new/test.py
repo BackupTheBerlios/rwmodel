@@ -1,5 +1,12 @@
+import numpy
 execfile('SmallFloat.py')
-a = Small(0.0000008)
+r = numpy.random.uniform()
+print r
+a = Small(r)
 print 'a created ...'
-a.multiply(500)
 a.p()
+b = Small(1)
+c = Small(0.1)
+b.p()
+c.p()
+

@@ -29,17 +29,18 @@ class Small:
       
   #normalize number greater than 0
   def normalize_num(self, n):
+    if n == 0:
+      return (BigFloat(0), float(0))
     e = math.log10(abs(n))
     if e > 0:
       e = math.floor(e)
-      return (BigFloat(e), n/(10**(e)))
+      return (-BigFloat(e), n/(10**(e)))
     else:
       e = math.ceil(-e)
-      return (-BigFloat(e), float(n*(10**(abs(e)))))
+      return (BigFloat(e), float(n*(10**(abs(e)))))
 
   def __init__(self,number):
-    self.x = number
-    pair =  Small.normalize(self, self.x)
+    pair =  Small.normalize_num(self,number)
     self.e = pair[0]
     self.m = pair[1]
   
@@ -58,7 +59,7 @@ class Small:
     mm = int(0)
     ee = BigFloat(0)
     #print number.e, self.e
-    if number.e < self.e:
+    if number.e > self.e:
       number_gt = 1
     if number.e == self.e and number.m > self.m:
       number_gt = 1
@@ -71,7 +72,7 @@ class Small:
       self.m = mm
       self.e = ee
     #greater is in Small
-    ediff = number.e - self.e
+    ediff = self.e - number.e
     #print 'num_gt:', number_gt
     #print 'ediff:', ediff
     
@@ -87,7 +88,7 @@ class Small:
       self.e -=1
     
   
-  def multiply(self, num):
+  def mul(self, num):
     #multiply by number that is not probability// greater than 1
     #multiplication is allowed if and only if number the result will not overflow
     if not(isinstance(num, Small)) and num > 0:
@@ -95,12 +96,10 @@ class Small:
       e = pair[0]
       m = pair[1]
       multiplicant = Small(0)
-      multiplicant.init(float(m), BigFloat(-e))
-      if e < self.e:
-        self.multiply(multiplicant)
-        return
-      else:
-        raise Exception('invalid input - result overflows')
+      multiplicant.init(float(m), BigFloat(e))
+      self.mul(multiplicant)
+      return
+    
     if not(isinstance(num, Small)) and num <=0:
       raise Exception('invalid input - negative value')
                   

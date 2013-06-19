@@ -8,7 +8,7 @@ from __future__ import division
 import os
 os.chdir('/home/luxe/Tracking/program/20130615_new')
 import imp
-mod = imp.load_source('vars', 'var_small.py')
+imp.load_source('vars', 'var_small.py')
 from vars import *
 from datetime import datetime
 from bigfloat import *
