@@ -4,9 +4,9 @@
 #author: Erik Lux
 #date: 20130615
 #purpose: joint distribution in target model, distinguishing between targets and objects
-import imp
-imp.load_source('grid', 'grid.py')
-from grid import *
+#import imp
+#imp.load_source('grid', 'grid.py')
+#from grid import *
 from datetime import datetime
 from bigfloat import *
 
@@ -28,10 +28,14 @@ def tjd():
       result2 *= dynamic_target_model(t,i)
     result *= (result1*result2*pmt(t)) 
   
-    print 't:', t, 'r1', result1, 'r2', result2, 'r', result
+    print >>f, 't:', t, 'r1', result1, 'r2', result2, 'r', result
   result *=(occupancy_vs_targets()*occupancy_vs())
   end_ = datetime.now()
   print 'Elapsed time: ', (end_-start_).microseconds
+  print >>f, 'result', result
   return result
 
-
+f = open('tjd.out', 'w')
+tjd()
+f.flush()
+f.close()

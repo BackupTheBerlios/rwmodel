@@ -8,17 +8,18 @@ from __future__ import division
 import os
 os.chdir('/home/luxe/Tracking/program/20130615_new')
 import imp
-imp.load_source('vars', 'var_small.py')
+imp.load_source('vars', 'var.py')
 from vars import *
 from datetime import datetime
 from bigfloat import *
+import math
 #P(O^0_(x,y)) foreach (x,y)
 def occupancy_vs():
   oxy= (BigFloat(objects /float(X*Y))**(X*Y)) #an arbitrary prior 
   return oxy
 
 def occupancy_vs_targets():
-  oxy = targets /float(X*Y)
+  oxy = BigFloat(targets /float(X*Y))
   return oxy**(X*Y)
 	
 #P(M^t)
@@ -49,7 +50,9 @@ def dynamic_object_model(t, x, y):
 
 #d((x,y),T^t_i) distance between target and (x,y)
 def distance(t,i,x,y):
-  return 1
+  dx = abs(x - T[t][i][0])
+  dy = abs(y - T[t][i][1])
+  return math.sqrt(dx**2 + dy**2)
 
 #P(O^t_(x,y)|T^t_i)
 def target_observation_model(t,i,x,y):

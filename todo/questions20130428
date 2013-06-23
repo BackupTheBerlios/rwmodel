@@ -13,7 +13,7 @@ in function dynamic_object_model:
 in funcions occupancy_vs and occupancy_vs_targets
   update to the precise value of probability
 
-new
+
 ......................................
 in var file
 	?: the O and V input variables relationship
@@ -34,7 +34,19 @@ in dynamic target model
   |epsylon*(T^(t-1),M^t)| a size of the set of the polar positions(ro, fi) that are in relation with T^(t-1)_i by the eye movement M^t. This set can be obtained by sampling like in a dynamic model
   distance in milimeters between T^t_i and (x,y) d(T^t_i, (x,y))
 
+new
 .....................................
 in target knowledge update = inference over targets
   ?: just check: outer loop over i, inner loop over t
-  ?: i,t which first
+  ?: parametrized by antecedent 
+  ?: summation array or overall
+
+in static model
+  ?: what does dirichlet distribution mean and P(C^1| pi_A)
+model with position of targets
+  ?: targets positions
+
+calculation control
+experimental data usage
+Colas and Fabien Flacher
+  

@@ -4,9 +4,9 @@
 #author: Erik Lux
 #date: 20130615
 #purpose:joint distribution in object model without diff between targets and distractors 
-import imp
-mod = imp.load_source('grid', 'grid.py')
-from grid import *
+#import imp
+#mod = imp.load_source('grid', 'grid.py')
+#from grid import *
 from datetime import datetime
 from bigfloat import *
 
@@ -23,12 +23,15 @@ def ojd():
     
     result *=result1
 
-    print 't: ', t,', result1: ', result1
+    print >> f, 't: ', t,', result1: ', result1
   
   result *= occupancy_vs()*result1
-  print 'occupancy:', occupancy_vs(), 'result:', result1
+  print >> f, 'occupancy:', occupancy_vs(), 'result:', result1
   end_ = datetime.now()
-  print 'Elapsed time is ',(end_-start_).microseconds
+  print >> f, 'Elapsed time is ',(end_-start_).microseconds
   return result
 
-
+f = open('ojd.out', 'w')
+ojd()
+f.flush()
+f.close()

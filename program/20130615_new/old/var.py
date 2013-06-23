@@ -2,7 +2,6 @@
 import csv
 import os
 import numpy
-from  Small import Small
 
 def roundto(angle, precision = 0.5):
     correction = 0.5 if angle > 0 else -0.5
@@ -33,8 +32,6 @@ def readcsv():
           y = int(y + 15)
           O[t][x][y] = 1
           V[t][x][y] = 1
-          if i>=6 and i<=12:
-            T[t][(i-6)/2] =(x,y)
 
 
 objects = 8
@@ -58,8 +55,8 @@ V = [ [ [ 0 for x in xrange(Y) ] for y in xrange(X) ] for t in xrange(times + 1)
 T = [[ (0,0) for i in xrange(targets)] for t in xrange(times +1)]
 
 M = [ (0, 0) for t in xrange(times + 1) ]
-I= [[[Small(numpy.random.uniform()) for x in xrange(Y)] for y in xrange(X)] for t in xrange(times +1)] 
-I_T = [[Small(numpy.random.uniform())  for i in xrange(targets)] for t in xrange(times+1)] #inference targets
+I= [[[numpy.random.uniform() for x in xrange(Y)] for y in xrange(X)] for t in xrange(times +1)] 
+I_T = [[numpy.random.uniform()  for i in xrange(targets)] for t in xrange(times+1)] #inference targets
 gaze_position = [ (0, 0) for t in xrange(times + 1) ]
 antecedent_cells = [ [(0, 0)] for t in xrange(times + 1) ]
 grid_inference = [ [ 0 for x in xrange(Y) ] for y in xrange(X) ]
