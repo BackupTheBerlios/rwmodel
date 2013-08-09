@@ -73,4 +73,4 @@ def dynamic_target_model(t,i):
   
   result *= set_size
   result /= (X*Y)
-  
+  return result  

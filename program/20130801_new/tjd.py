@@ -7,12 +7,13 @@
 #import imp
 #imp.load_source('grid', 'grid.py')
 #from grid import *
-from datetime import datetime
+import time
 from bigfloat import *
 
 #P(OVMT)
 def tjd():
-  start_= datetime.now()
+  print "Target Joint Distribution started ...\n"
+  start_= time.time()
 
   result = BigFloat(1)
   for t in range(1,times+1):
@@ -28,11 +29,12 @@ def tjd():
       result2 *= dynamic_target_model(t,i)
     result *= (result1*result2*pmt(t)) 
   
-    print >>f, 't:', t, 'r1', result1, 'r2', result2, 'r', result
+    print "Partial result for time: ", t, "is dynamic_target_model ", result2
+    print "and observation_model ", result1, "\n"
   result *=(occupancy_vs_targets()*occupancy_vs())
-  end_ = datetime.now()
-  print 'Elapsed time: ', (end_-start_).microseconds
-  print >>f, 'result', result
+  end_ = time.time()
+  print "Target Joint Distribution: ", result
+  print 'Elapsed time: ', (end_-start_)/60, "minutes"
   return result
 
 f = open('tjd.out', 'w')

@@ -50,7 +50,7 @@ def oku():
       for y in xrange(Y):
         multiplicant1.init(suma.m, suma.e)
         multiplicant1.mul(observation_model(t,x,y))
-        multiplicant1.div_by_int((antecedent*2+1)**2)
+        multiplicant1.divide_by_int((antecedent*2+1)**2)
         I[t][x][y] = multiplicant1
         if t == times:
           print "at position ", x,",", y,": \n"
