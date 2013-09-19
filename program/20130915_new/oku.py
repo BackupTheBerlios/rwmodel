@@ -15,7 +15,7 @@ from bigfloat import *
 def oku():
   print "Object knowledge update started ...\n"
   _start = time.time()
-  for t in xrange(2,4):    #!!!times+1
+  for t in xrange(2,5):    #!!!times+1
     #incremental phase
     print "Suma calculation started ...\n"
      
@@ -39,14 +39,14 @@ def oku():
         for j in range(x-x1, x+x2):
           for i in range(y-y1, y+y2):
             multiplicant1.init(multiplicant.m, multiplicant.e)
-            multiplicant1.mul(dynamic_object_model(t,j, i))
+            #multiplicant1.mul(dynamic_object_model(t,j, i))
             suma.add(multiplicant1)
           #print "Partial sum: "
            # suma.p()
 
 
         suma.mul(observation_model(t,x,y))
-        suma.divide_by_int((antecedent*2+1)**2)
+        suma.divide_by_int((x1+x2)*(y1+y2))
         I[t][x][y] = suma
     print "Time: ", t
     if t == times:

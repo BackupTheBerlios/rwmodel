@@ -87,7 +87,7 @@ M = [(0, 0) for t in xrange(times + 1) ]
 targets_ = [[(0,0) for i in xrange(targets)] for t in xrange(times+1)]
 distractors_  = [[(0,0) for i in xrange(objects - targets)] for t in xrange(times+1)]
 print "(O,V,T,M) initialized ..."
-I= [[[Small(numpy.random.uniform()) for x in xrange(Y)] for y in xrange(X)] for t in xrange(times +1)]
+I= [[[numpy.random.uniform() for x in xrange(Y)] for y in xrange(X)] for t in xrange(times +1)]
 print "(I) initialized ..."
 I_T = [[Small(numpy.random.uniform())  for i in xrange(targets)] for t in xrange(times+1)] #inference targets
 print "(I_T) initialized ..."

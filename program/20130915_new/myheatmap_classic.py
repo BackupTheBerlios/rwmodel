@@ -7,37 +7,28 @@ import numpy as np
 import copy
 import bigfloat
 def print_heat(I,X, Y, time):
-  minx = 1
-  miny= 1
-  maxx = 0
-  maxy = 0
-
-  maxv = Small(0)
-  maxv.e = bigfloat.EMIN_MAX
-  minv = Small(1)
+  maxv =0
+  minv =1
   for x in xrange(X):
     for y in xrange(Y):
       val = I[time][x][y]
-      if val.e <  maxv.e or (val.e == maxv.e and val.m > maxv.m):
-        maxv.e = val.e
-        maxv.m = val.m
-   
-      if val.e > minv.e or (val.e == minv.e and val.m < minv.m): 
-        minv.e = val.e
-        minv.m = val.m
+      if val > maxv:
+        maxv = val 
+      if val < minv: 
+        minv = val
       
-  print 'max:', maxv.e
-  print 'min:', minv.e
+  print 'max:', maxv
+  print 'min:', minv
   
-  interval_diff = minv.e - maxv.e
+  interval_diff = maxv - minv
   print 'interval: ', interval_diff
   heat_array = [[0 for y in xrange(Y)] for x in xrange(X)]
 
   for x in xrange(X):
     for y in xrange(Y):
-      tmp = I[time][x][y].e - minv.e
+      tmp = I[time][x][y] - minv
       
-      heat_array[x][y] = float(-tmp /  interval_diff)
+      heat_array[x][y] = float(tmp /  interval_diff)
   
   return  heat_array 
   '''
