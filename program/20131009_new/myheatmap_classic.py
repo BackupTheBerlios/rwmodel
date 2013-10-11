@@ -40,4 +40,14 @@ def plot_map(I, X, Y, time, targets_, distractors_):
   heatmap = plt.pcolor(data)
   plt.colorbar(heatmap)
   plt.show()
+
+def write_map(I, X, Y, time, targets_, distractors_, filename):
+  print 'targets: ', targets_[time]
+  print 'distractors: ', distractors_[time]
+  heat_array = print_heat(I, X, Y, time)
+  data = np.asarray(heat_array)
+  heatmap = plt.pcolor(data)
+  plt.savefig(str(filename)+'.png')
+
+#sudo ffmpeg -qscale 5 -r 20 -i %01d.png  movie.mp4
  

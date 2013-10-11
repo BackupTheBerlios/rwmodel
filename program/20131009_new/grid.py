@@ -56,7 +56,8 @@ def distance(t,i,x,y):
 
 #P(O^t_(x,y)|T^t_i)
 def target_observation_model(t,i,x,y):
-  result =0.25/((distance(t,i,x,y)/0.02)**2 +1)
+  result =0.25/((distance(t,i,x,y)/0.02)**2 +1)#/0.02
+  return result
   if O[t][x][y] == 1:
     return 0.5+result
   else:

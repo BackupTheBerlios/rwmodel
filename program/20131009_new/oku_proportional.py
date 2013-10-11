@@ -27,7 +27,7 @@ def normalize(t):
   print 'min', minv
   normal = abs(int(math.log10(maxv)))
   print 'normal', normal
-  if normal > 5:
+  if normal > 1:
     print 'normalized ...'
     for x in xrange(X):
       for y in xrange(Y):

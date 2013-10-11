@@ -14,6 +14,7 @@ from __future__ import division
 import time
 from bigfloat import *
 import math
+import myheatmap_classic as mhp
 
 
 def normalize(t):
@@ -30,7 +31,7 @@ def normalize(t):
   print 'min', minv
   normal = abs(int(math.log10(maxv)))
   print 'normal', normal
-  if normal > 5:
+  if normal > 1:
     print 'normalized ...'
     for x in xrange(X):
       for y in xrange(Y):
@@ -39,28 +40,34 @@ def normalize(t):
 def tku():
   print "Target knowledge update started ..."
   start_ = time.time()
-  for t in range(2, 15):  #times+1
+  target_i= [[[0 for x in xrange(Y)] for y in xrange(X)] for i in xrange(targets)]
+
+  for t in range(2,100 ):  #times+1
     print 'time is:' , t
-    for x in xrange(X):
-      for y in xrange(Y):
-        (ant_size, xl, xr, yl, yr) = calc_antecedent_bounds(x,y)
-        
-        for i in xrange(targets):
+    for i in xrange(targets):
+      for x in xrange(X):
+        for y in xrange(Y):
+          (ant_size, xl, xr, yl, yr) = calc_antecedent_bounds(x,y)
           suma1 = 0
-          suma2 = 0
-          dyn_model = dynamic_target_model(t,i,xl,xr,yl,yr, ant_size)
+          #dyn_model = dynamic_target_model(t,i,xl,xr,yl,yr, ant_size)
 
           for j in range(xl, xr):
             for k in range(yl, yr):
-              suma1 += (I[t][j][k]*dyn_model)
-          suma1 /= (ant_size)
+              suma1 += (target_observation_model(t,i,j,k)*I[t][j][k])
+          suma1 /= ant_size
+          target_i[i][x][y] = suma1
+    print "over targets ..."
 
-          suma2 += (suma1*I_T[t-1][x][y])
-        suma2 /= targets
+    for x in xrange(X):
+      for y in xrange(Y):
+        suma2 = 0
+        for i in xrange(targets):
+          suma2 += I_T[t-1][x][y]*target_i[i][x][y]
+        suma2 /= ant_size
         I_T[t][x][y] = suma2
-
     normalize(t)
-
+    mhp.write_map(I_T,X,Y,t,targets_, distractors_, t+1000)
+  
   end_ = time.time()
   print "Target knowledge update finished ..."
   print 'Elapsed time is ',(end_-start_)/60, 'minutes'
