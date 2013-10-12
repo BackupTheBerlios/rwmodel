@@ -31,18 +31,25 @@ def normalize(t):
   print 'min', minv
   normal = abs(int(math.log10(maxv)))
   print 'normal', normal
-  if normal > 1:
+  if normal > 5:
     print 'normalized ...'
     for x in xrange(X):
       for y in xrange(Y):
         I_T[t][x][y] *= 10**normal
+        
+        '''
+        #eliminate very small values
+        diff_ = int(abs(int(math.log10(I_T[t][x][y])))-15)
+        if diff_ > 0:
+          I_T[t][x][y] *= 10**diff_
+        '''
 
 def tku():
   print "Target knowledge update started ..."
   start_ = time.time()
   target_i= [[[0 for x in xrange(Y)] for y in xrange(X)] for i in xrange(targets)]
 
-  for t in range(2,100 ):  #times+1
+  for t in range(2,times+1 ):  #times+1
     print 'time is:' , t
     for i in xrange(targets):
       for x in xrange(X):
