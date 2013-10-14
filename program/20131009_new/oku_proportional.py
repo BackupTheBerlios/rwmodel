@@ -12,7 +12,6 @@ from __future__ import division
 
 #from grid import *
 import time
-import myheatmap_classic as mhp
 
 def normalize(t):
   maxv = 0
@@ -72,13 +71,7 @@ def oku():
         I[t][x][y] = suma
     
     normalize(t)
-    mhp.write_map(I,X,Y,t,targets_, distractors_, t+3000)
     print "Time: ", t
-    if t == times:
-      for x in xrange(X):
-        for y in xrange(Y):
-          print "at position ", x,",", y,": \n"
-          print I[t][x][y]
   print "Object knowledge update successfully finished ..."
 #f = open('oku.out', 'w')
 oku()

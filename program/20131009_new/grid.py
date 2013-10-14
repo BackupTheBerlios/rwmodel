@@ -6,12 +6,11 @@ from __future__ import division
 #date: 20130615
 #purpose: occupancy grid
 import os
-os.chdir('/home/luxe/Tracking/program/20131009_new')
+os.getcwd()
 import imp
 imp.load_source('vars', 'var.py')
 from vars import *
 from datetime import datetime
-from bigfloat import *
 import math
 #P(O^0_(x,y)) foreach (x,y)
 def occupancy_vs():
@@ -24,7 +23,7 @@ def occupancy_vs_targets():
 	
 #P(M^t)
 def pmt(t):
-	return numpy.random.uniform()
+	return 0.5 
 
 #P(V^t_(x,y)|O^t_(x,y))
 def observation_model(t, x, y):
@@ -45,7 +44,7 @@ def dynamic_object_model(t, x, y):
     else:
       return 0.1
   else:
-    return numpy.random.uniform()
+    return 0.5 
       
 
 #d((x,y),T^t_i) distance between target and (x,y)

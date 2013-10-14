@@ -12,9 +12,7 @@ from __future__ import division
 
 #from grid import *
 import time
-from bigfloat import *
 import math
-import myheatmap_classic as mhp
 
 
 def normalize(t):
@@ -31,18 +29,18 @@ def normalize(t):
   print 'min', minv
   normal = abs(int(math.log10(maxv)))
   print 'normal', normal
-  if normal > 5:
+  if normal > 1:
     print 'normalized ...'
     for x in xrange(X):
       for y in xrange(Y):
         I_T[t][x][y] *= 10**normal
         
-        '''
+        
         #eliminate very small values
-        diff_ = int(abs(int(math.log10(I_T[t][x][y])))-15)
+        diff_ = abs(int(math.log10(I_T[t][x][y])))-280
         if diff_ > 0:
           I_T[t][x][y] *= 10**diff_
-        '''
+        
 
 def tku():
   print "Target knowledge update started ..."
@@ -73,7 +71,6 @@ def tku():
         suma2 /= ant_size
         I_T[t][x][y] = suma2
     normalize(t)
-    mhp.write_map(I_T,X,Y,t,targets_, distractors_, t+1000)
   
   end_ = time.time()
   print "Target knowledge update finished ..."
