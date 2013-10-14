@@ -1,11 +1,9 @@
 from __future__ import division
 #-*- coding: utf-8 -*-
 #!/usr/bin/python
-from Small import Small
 import matplotlib.pyplot as plt
 import numpy as np
 import copy
-import bigfloat
 import math
 def print_heat(I,X, Y, time):
   maxv =0
@@ -62,19 +60,27 @@ def print_heat_exp(I,X, Y, time):
       #print heat_array[x][y] 
   return  heat_array 
 
-def plot_map(I, X, Y, time, targets_, distractors_):
+#without changing interval
+def print_heat_exp_new(I,X, Y, time,heat_array):
+  for x in xrange(X):
+    for y in xrange(Y):
+      heat_array[x][y] = int(math.log10(I[time][x][y]))
+  return  heat_array 
+
+
+def plot_map(I, X, Y, time, targets_, distractors_, array):
   print 'targets: ', targets_[time]
   print 'distractors: ', distractors_[time]
-  heat_array = print_heat_exp(I, X, Y, time)
+  heat_array = print_heat_exp_new(I, X, Y, time, array)
   data = np.asarray(heat_array)
   heatmap = plt.pcolor(data)
   plt.colorbar(heatmap)
   plt.show()
 
-def write_map(I, X, Y, time, targets_, distractors_, filename):
+def write_map(I, X, Y, time, targets_, distractors_, filename, heat_array):
   print 'targets: ', targets_[time]
   print 'distractors: ', distractors_[time]
-  heat_array = print_heat_exp(I, X, Y, time)
+  heat_array = print_heat_exp_new(I, X, Y, time,heat_array)
   data = np.asarray(heat_array)
   heatmap = plt.pcolor(data)
   plt.savefig(str(filename)+'.png')
