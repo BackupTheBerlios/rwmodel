@@ -68,7 +68,7 @@ def tku():
         suma2 = 0
         for i in xrange(targets):
           suma2 += target_i[i][x][y]#*I_T[t-1][x][y]
-        suma2 /=targets 
+        suma2 /=targets
         I_T[t][x][y] = suma2
     normalize(t)
   

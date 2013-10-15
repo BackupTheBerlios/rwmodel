@@ -69,21 +69,19 @@ def print_heat_exp_new(I,X, Y, time,heat_array):
 
 
 def plot_map(I, X, Y, time, targets_, distractors_, array):
-  print 'targets: ', targets_[time]
-  print 'distractors: ', distractors_[time]
   heat_array = print_heat_exp_new(I, X, Y, time, array)
   data = np.asarray(heat_array)
   heatmap = plt.pcolor(data)
+  plt.xlabel('time: ' + str(time) + ' targ: ' + str(targets_[time]) + '\n' + 'dist: '+ str(distractors_[time]), fontsize=10)
   plt.colorbar(heatmap)
   plt.show()
 
 def write_map(I, X, Y, time, targets_, distractors_, filename, heat_array):
-  print 'targets: ', targets_[time]
-  print 'distractors: ', distractors_[time]
   heat_array = print_heat_exp_new(I, X, Y, time,heat_array)
   data = np.asarray(heat_array)
   heatmap = plt.pcolor(data)
+  plt.xlabel('time: ' + str(time) + ' targ: ' + str(targets_[time]) + '\n' + 'dist: ' + str(distractors_[time]), fontsize=10)
   plt.savefig(str(filename)+'.png')
-
+  
 #sudo ffmpeg -qscale 5 -r 20 -i %01d.png  movie.mp4
  
