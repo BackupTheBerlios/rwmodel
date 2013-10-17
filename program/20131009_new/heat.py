@@ -3,7 +3,8 @@ from __future__ import division
 #!/usr/bin/python
 import matplotlib.pyplot as plt
 import numpy as np
-import copy
+from pylab import *
+from matplotlib.patches import Circle, Wedge
 import math
 def print_heat(I,X, Y, time):
   maxv =0
@@ -74,6 +75,9 @@ def plot_map(I, X, Y, time, targets_, distractors_, array):
   heatmap = plt.pcolor(data)
   plt.xlabel('time: ' + str(time) + ' targ: ' + str(targets_[time]) + '\n' + 'dist: '+ str(distractors_[time]), fontsize=10)
   plt.colorbar(heatmap)
+  for i in xrange(len(targets_[time])):
+    circle1 = matplotlib.patches.Circle((targets_[time][i][1], targets_[time][i][0]), radius=0.5, color='k', zorder=10)
+    gca().add_patch(circle1) 
   plt.show()
 
 def write_map(I, X, Y, time, targets_, distractors_, filename, heat_array):
