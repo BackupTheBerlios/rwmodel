@@ -15,16 +15,17 @@ import time
 import math
 
 
-def normalize(t):
+def normalize(b,t):
   maxv = 0
   minv =1
   for x in xrange(X):
     for y in xrange(Y):
-      val = I_T[t][x][y]
+      val = I_T[b][t][x][y]
       if val > maxv:
         maxv = val
         if val < minv:
           minv = val
+  print 'block', b
   print 'max', maxv
   print 'min', minv
   normal = abs(int(math.log10(maxv)))
@@ -33,16 +34,16 @@ def normalize(t):
     print 'normalized ...'
     for x in xrange(X):
       for y in xrange(Y):
-        I_T[t][x][y] *= 10**normal
+        I_T[b][t][x][y] *= 10**normal
         
         
         #eliminate very small values
-        diff_ = abs(int(math.log10(I_T[t][x][y])))-280
+        diff_ = abs(int(math.log10(I_T[b][t][x][y])))-280
         if diff_ > 0:
-          I_T[t][x][y] *= 10**diff_
+          I_T[b][t][x][y] *= 10**diff_
         
 
-def tku():
+def tku(b):
   print "Target knowledge update started ..."
   start_ = time.time()
   target_i= [[[0 for x in xrange(Y)] for y in xrange(X)] for i in xrange(targets)]
@@ -58,7 +59,7 @@ def tku():
 
           for j in range(xl, xr):
             for k in range(yl, yr):
-              suma1 += (target_observation_model(t,i,j,k)*I[t][j][k])
+              suma1 += (target_observation_model(b,t,i,j,k)*I[b][t][j][k])
           suma1 /= ant_size
           target_i[i][x][y] = suma1
     print "over targets ..."
@@ -69,14 +70,15 @@ def tku():
         for i in xrange(targets):
           suma2 += target_i[i][x][y]#*I_T[t-1][x][y]
         suma2 /=targets
-        I_T[t][x][y] = suma2
-    normalize(t)
+        I_T[b][t][x][y] = suma2
+    normalize(b,t)
   
   end_ = time.time()
   print "Target knowledge update finished ..."
   print 'Elapsed time is ',(end_-start_)/60, 'minutes'
 
 f = open('tku.out', 'w')
-tku()
+for b in xrange(blocks):
+  tku(b)
 f.close()
 

@@ -13,16 +13,17 @@ from __future__ import division
 #from grid import *
 import time
 
-def normalize(t):
+def normalize(b,t):
   maxv = 0
   minv = 1
   for x in xrange(X):
     for y in xrange(Y):
-      val = I[t][x][y]
+      val = I[b][t][x][y]
       if val > maxv:
         maxv = val
       if val < minv:
         minv = val
+  print 'block', b
   print 'max', maxv
   print 'min', minv
   normal = abs(int(math.log10(maxv)))
@@ -31,9 +32,9 @@ def normalize(t):
     print 'normalized ...'
     for x in xrange(X):
       for y in xrange(Y):
-        I[t][x][y] *= 10**normal
+        I[b][t][x][y] *= 10**normal
 
-def oku():
+def oku(b):
   print "Object knowledge update started ...\n"
   _start = time.time()
   for t in xrange(2,times+1):    #!!!times+1
@@ -59,20 +60,21 @@ def oku():
         yr = y+int(y2)
         for j in range(xl, xr):
           for i in range(yl, yr):
-            multiplicant *= I[t-1][j][i]
+            multiplicant *= I[b][t-1][j][i]
         multiplicant = multiplicant**(1/ant_size)
 
         for j in range(x-x1, x+x2):
           for i in range(y-y1, y+y2):
-            multiplicant *= dynamic_object_model(t,j, i)
+            multiplicant *= dynamic_object_model(b,t,j, i)
             suma += multiplicant
-        suma *= observation_model(t,x,y)
+        suma *= observation_model(b,t,x,y)
         suma /= ant_size
-        I[t][x][y] = suma
+        I[b][t][x][y] = suma
     
-    normalize(t)
+    normalize(b,t)
     print "Time: ", t
   print "Object knowledge update successfully finished ..."
 #f = open('oku.out', 'w')
-oku()
+for b in xrange(blocks):
+  oku(b)
 #f.close()
