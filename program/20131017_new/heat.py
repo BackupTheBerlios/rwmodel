@@ -73,10 +73,13 @@ def plot_map(I, X, Y, time, targets_, distractors_, array):
   heat_array = print_heat_exp_new(I, X, Y, time, array)
   data = np.asarray(heat_array)
   heatmap = plt.pcolor(data)
-  plt.xlabel('time: ' + str(time) + ' targ: ' + str(targets_[time]) + '\n' + 'dist: '+ str(distractors_[time]), fontsize=10)
+  plt.xlabel('time: ' + str(time) + ' targ: ' + str(targets_[time]) +' (black)'+ '\n' + 'dist: '+ str(distractors_[time]) + ' (transparent)', fontsize=10)
   plt.colorbar(heatmap)
   for i in xrange(len(targets_[time])):
-    circle1 = matplotlib.patches.Circle((targets_[time][i][1], targets_[time][i][0]), radius=0.5, color='k', zorder=10)
+    circle1 = matplotlib.patches.Circle((targets_[time][i][1]+1, targets_[time][i][0]+1), radius=0.5, color='k', zorder=10)
+    gca().add_patch(circle1) 
+  for i in xrange(len(distractors_[time])):
+    circle1 = matplotlib.patches.Circle((distractors_[time][i][1]+1, distractors_[time][i][0]+1), radius=0.5, color='k', zorder=10,fill=False)
     gca().add_patch(circle1) 
   plt.show()
 
