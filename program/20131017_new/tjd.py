@@ -10,8 +10,18 @@
 import time
 from bigfloat import *
 
+#P(T^t_i| M^t O^t T^(t-1)_i)
+def dynamic_target_model(b, t, i):
+  result = BigFloat(1)
+  for x in xrange(X):
+    for y in xrange(Y):
+      result *= target_observation_model(b, t, i, x, y)
+
+  return result
+
+
 #P(OVMT)
-def tjd():
+def tjd(b):
   print "Target Joint Distribution started ...\n"
   start_= time.time()
 
@@ -21,12 +31,12 @@ def tjd():
     result1 = BigFloat(1)
     for x in xrange(X):
       for y in xrange(Y):
-        result1 *=(observation_model(t,x,y)
-					*dynamic_object_model(t,x,y))
+        result1 *=(observation_model(b,t,x,y)
+          *dynamic_object_model(b, t,x,y))
 
     result2 = BigFloat(1)
     for i in xrange(targets):
-      result2 *= dynamic_target_model(t,i)
+      result2 *= dynamic_target_model(b,t,i)
     result *= (result1*result2*pmt(t)) 
   
     print "Partial result for time: ", t, "is dynamic_target_model ", result2
@@ -38,6 +48,8 @@ def tjd():
   return result
 
 f = open('tjd.out', 'w')
-tjd()
+for b in xrange(blocks):
+  tjd(b)
+
 f.flush()
 f.close()

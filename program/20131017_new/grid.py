@@ -77,4 +77,31 @@ def calc_antecedent_bounds(x,y):
 
   return (ant_size, xl, xr, yl, yr)
 
+def min_max_normal(I, b, t, X, Y, I_T_flag):
+  maxv = 0
+  minv = 1
+  for x in xrange(X):
+    for y in xrange(Y):
+      val = I[b][t][x][y]
+      if val > maxv:
+        maxv = val
+      if val < minv:
+        minv = val
+  print 'block', b
+  print 'max', maxv
+  print 'min', minv
+  normal = abs(int(math.log10(maxv)))
+  print 'normal', normal
+  if normal > 1:
+    for x in xrange(X):
+      for y in xrange(Y):
+        I[b][t][x][y] *= 10**normal
 
+        #eliminate small values if I_T flag is set 
+        if I_T_flag:
+          diff_ = abs(int(math.log10(I[b][t][x][y]))) -280
+          if diff_ > 0:
+            I[b][t][x][y] *= 10**diff_
+  return (minv, maxv, normal)
+  
+  

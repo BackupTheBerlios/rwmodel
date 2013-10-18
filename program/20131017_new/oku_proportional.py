@@ -5,12 +5,7 @@ from __future__ import division
 #author: Erik Lux
 #date: 20130615
 #purpose: incrementally update knowledge over the grid
-#modification: using my own class SmallFloat for working with very small probabilities
 
-#import imp
-#mod = imp.load_source('grid', 'grid.py')
-
-#from grid import *
 import time
 
 def normalize(b,t):
@@ -71,7 +66,7 @@ def oku(b):
         suma /= ant_size
         I[b][t][x][y] = suma
     
-    normalize(b,t)
+    min_max_normal(I, b, t, X, Y, False)#normalize(b,t)
     print "Time: ", t
   print "Object knowledge update successfully finished ..."
 #f = open('oku.out', 'w')

@@ -23,8 +23,8 @@ def normalize(b,t):
       val = I_T[b][t][x][y]
       if val > maxv:
         maxv = val
-        if val < minv:
-          minv = val
+      if val < minv:
+        minv = val
   print 'block', b
   print 'max', maxv
   print 'min', minv
@@ -71,7 +71,7 @@ def tku(b):
           suma2 += target_i[i][x][y]#*I_T[t-1][x][y]
         suma2 /=targets
         I_T[b][t][x][y] = suma2
-    normalize(b,t)
+    min_max_normal(I_T, b, t, X, Y, True)#normalize(b,t)
   
   end_ = time.time()
   print "Target knowledge update finished ..."
