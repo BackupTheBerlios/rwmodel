@@ -20,7 +20,7 @@ def symetrical_beta_dist(t, x, y):
   param= 0.075
   
   if g_x == x and g_y == y:
-    return beta.cdf(I_T0.075, 0.075)
+    return beta.cdf(I_T,:0.075, 0.075)
   else:
     return numpy.random.uniform()
   return result
