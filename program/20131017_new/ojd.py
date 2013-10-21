@@ -11,7 +11,7 @@ import time
 from bigfloat import *
 
 #P(OVM)
-def ojd():
+def ojd(b):
   print "Object Joint Distribution started ...\n"
   start_ = time.time()
   result =BigFloat(1)
@@ -19,8 +19,8 @@ def ojd():
     result1 =BigFloat(pmt(t)) 
     for x in xrange(X):
       for y in xrange(Y):
-        result1*= ( observation_model(t,x,y)\
-        *dynamic_object_model(t,x,y))
+        result1*= ( observation_model(b,t,x,y)\
+        *dynamic_object_model(b,t,x,y))
     
     result *=result1
     print "Partial result for time ", t, "is ", result1, " ...\n"
@@ -32,6 +32,8 @@ def ojd():
   return result
 
 f = open('ojd.out', 'w')
-ojd()
+for b in xrange(blocks):
+  ojd(b)
+
 f.flush()
 f.close()
