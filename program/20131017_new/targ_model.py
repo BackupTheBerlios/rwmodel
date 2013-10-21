@@ -35,6 +35,6 @@ def tm():
     for t in range(2, times+1):
       for x in xrange(X):
         for y in xrange(Y):
-          TM[t][x][y] *= I_T[b][t][x][y] * gaze_target_model(b, t, i)
+          TM[t][x][y] *= (I_T[b][t][x][y] * gaze_target_model(b, t, i))
   return TM
 
