@@ -25,7 +25,7 @@ def symetrical_beta_dist(TM, t, x, y):
       return beta.cdf(TM[t][x][y],0.075, 0.075)
   return numpy.random.uniform()
 #probability of gaze position
-def tm(TM):
+def um(TM):
   UM = TM
   for t in range(2, times+1):
     for x in xrange(X):
