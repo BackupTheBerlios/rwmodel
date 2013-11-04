@@ -19,6 +19,10 @@ def print_heat_exp_new2(I,X, Y, time,heat_array):
   return  heat_array 
 
 
+def plot_map_basic(I):
+  data  = np.asarray(I)
+  heatmap = plt.pcolor(data)
+  plt.show()
 
 def plot_map(I, X, Y, time, targets_, distractors_, array):
   heat_array = print_heat_exp_new(I, X, Y, time, array)

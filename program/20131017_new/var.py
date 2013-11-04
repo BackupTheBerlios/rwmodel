@@ -29,30 +29,20 @@ def set_variables(rows, b):
       if i>=6 and i<=12:
         T[b][t][(i-6)/2] =(x,y)
       
-def readidblock(i, b):
+def read_block(trial, track):
   with open('../dataset/dataset_Erik.csv', 'rb') as csvfile:
-    rows = []
-    trial = []
-    prev_trials = []
+    rws = []
     reader = csv.reader(csvfile, delimiter=',', quotechar='|')
-    next(reader)
-    for row in reader:
-      if row[1]== i and row[2]== b:
-        if row[3] not in prev_trials:
-          prev_trials.append(row[3])
-          if len(trial):
-            rows.append(trial)
-          trial =[]
-          trial.append(row)
-        else:
-          trial.append(row)
-    rows.append(trial)
-  return rows
+    #next(reader)
+    for r in reader:
+      if r[3] == trial and r[5]==track:
+        rws.append(r)
+  return rws
 
 start_ = time.time()
 print "Starting execution ..."
 print "Loading variables ... (objects, targets, antecedent,X,Y,bound1,bound2)\n"
-blocks = 6
+blocks =5 
 objects = 8
 targets = 4
 antecedent =1 
@@ -69,20 +59,18 @@ row[4] ... trial 2-0
 print "Reading CSV blocks ...\n"
 blocks_ = []
 block = 0
-blocks_.append(readidblock('"1"', '"1"'))
-blocks_.append(readidblock('"1"', '"2"'))
-blocks_.append(readidblock('"1"', '"3"'))
-blocks_.append(readidblock('"1"', '"4"'))
-blocks_.append(readidblock('"1"', '"5"'))
-blocks_.append(readidblock('"1"', '"6"'))
-#id1_b2 = readidblock('"1"','"2"')
+blocks_.append(read_block('"10"', '"138"'))
+blocks_.append(read_block('"24"','"138"'))
+blocks_.append(read_block('"41"', '"138"'))
+blocks_.append(read_block('"53"', '"138"'))
+blocks_.append(read_block('"70"', '"138"'))
 
-print 'len rows ...', len(blocks_[0][0])-1
+print 'len rows ...', len(blocks_[0]), len(blocks_[1]), len(blocks_[2]), len(blocks_[3]), len(blocks_[4])
 
 print "Initializing variables and arrays ..."
 print "(times, O,V,T,M,I, I_T)\n"
 _start = time.time()
-times = len(blocks_[5][0]) - 1
+times = len(blocks_[4])
 O = [ [ [ [ 0 for x in xrange(Y) ] for y in xrange(X) ] for t in xrange(times + 1) ] for b in xrange(blocks)] 
 T = [ [ [ (0,0) for i in xrange(targets)] for t in xrange(times +1)] for b in xrange(blocks)]
 M = [(0, 0) for t in xrange(times + 1) ]
@@ -102,7 +90,7 @@ antecedent_cells = [ [ [(0, 0)] for t in xrange(times + 1) ] for b in xrange(blo
 
 print "Initializing variables from csv data ...\n"
 for b in xrange(blocks):
-  rows = blocks_[b][0]
+  rows = blocks_[b]
   set_variables(rows, b)
 times = 488 #according to the smallest block
 print "Initialization successfull ..."
