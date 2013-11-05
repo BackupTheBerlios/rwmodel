@@ -48,6 +48,7 @@ def tku(b):
   start_ = time.time()
   target_i= [[[0 for x in xrange(Y)] for y in xrange(X)] for i in xrange(targets)]
 
+  target_it = []
   for t in range(2,times+1 ):  #times+1
     print 'time is:' , t
     for i in xrange(targets):
@@ -62,6 +63,7 @@ def tku(b):
               suma1 += (target_observation_model(b,t,i,j,k)*I[b][t][j][k])
           suma1 /= ant_size
           target_i[i][x][y] = suma1
+    target_it.append(target_i)
     print "over targets ..."
 
     for x in xrange(X):
@@ -76,9 +78,12 @@ def tku(b):
   end_ = time.time()
   print "Target knowledge update finished ..."
   print 'Elapsed time is ',(end_-start_)/60, 'minutes'
+  
+  return target_it
 
 f = open('tku.out', 'w')
+target_itb = []
 for b in xrange(blocks):
-  tku(b)
+  target_itb.append(tku(b))
 f.close()
 

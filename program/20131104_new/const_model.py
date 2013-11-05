@@ -31,28 +31,55 @@ def dirichlet_at_pos (dist):
 def dist_between_pos ((x1,y1), (x2,y2)):
   return math.sqrt(abs(x2-x1)**2 + abs(y2-y1)**2)
 
+def mult_by_pos (ar1, ar2, MAX):
+  return [ [ar1[x][y] * ar2[x][y] for y in xrange(MAX)] for x in xrange(MAX)]
+
+def add_by_pos (ar1, ar2, MAX):
+  return [[ar1[x][y] + ar2[x][y] for y in xrange(MAX)] for x in xrange(MAX)]
+
+def div_by_pos (ar1, val, MAX):
+  return [[ ar1[x][y]/4 for y in xrange(MAX) ] for x in xrange(MAX) ]
+
+def root_by_pos(ar1, root, MAX):
+  return [[ ar1[x][y]**(1/root) for y in xrange(MAX)] for x in xrange(MAX)] 
+
 def dirichlet_at_grid((px,py)):
   grid = [[ 0 for x in xrange(MAX)] for y in xrange(MAX)]
   for x in xrange(MAX):
     for y in xrange(MAX):
       dist = dist_between_pos ((px, py), (x,y))
       grid[x][y] = dirichlet_at_pos(dist)
+      if grid[x][y] < 0.85:
+        grid[x][y] += 0.15
   return grid
 
 
 
 #const_model contains all blocks
-'''
-CM = [ [ [ 0.01 for y in xrange(Y) ] for x in xrange(X) ] for t in xrange(times+1) ]
-until var.py is fixed
-'''
+
 #probability of gaze position
-'''
+
 def cm():
-  p = 1/blocks
+  CM = [ [ [ 1 for y in xrange(Y) ] for x in xrange(X) ] for t in xrange(times+1) ]
+  
   for b in xrange(blocks):
-    (x, y) = gaze_position[b][0]
-    for t in xrange(times+1):
-      CM[t][x][y] += p
+    (gx, gy) = gaze_position[b][0]
+    temp = dirichlet_at_grid((gx, gy))
+    CM[0] = mult_by_pos (CM[0], temp, X)
+  
+  for t in range(1,times+1):
+      CM[t] = CM[t-1]
   return CM
-'''
+
+def cm_alldiff():
+  CM = [ [ [ 1 for y in xrange(Y) ] for x in xrange(X) ] for t in xrange(times+1) ]
+  
+  for t in range(1, times-1):
+    print t
+    for b in xrange(blocks):
+      (gx, gy) = gaze_position[b][t]
+      temp = dirichlet_at_grid((gx, gy))
+      CM[t] = mult_by_pos (CM[t], temp, X)
+  
+  return CM
+

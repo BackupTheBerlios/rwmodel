@@ -10,27 +10,21 @@ from __future__ import division
 import math
 import numpy
 from scipy.stats import beta
-
+from const_model import *
 #targ_model contains all blocks
 UM = []
-
-#P(I^t_(x,y)|C^t piC)
-def symetrical_beta_dist(TM, t, x, y):
-  param= 0.075
+param= 0.075
+bd = beta(param, param)
   
-  for b in xrange(blocks):
-    if (x,y) not in gaze_position[b][t]:
-      continue
-    else:
-      return beta.cdf(TM[t][x][y],0.075, 0.075)
-  return numpy.random.uniform()
-#probability of gaze position
+#P(I^t_(x,y)|C^t piC)
+def symetrical_beta_dist(p):
+  return bd.pdf(p)
+
 def um(TM):
   UM = TM
-  for t in range(2, times+1):
-    for x in xrange(X):
-      for y in xrange(Y):
-        UM[t][x][y] *= symetrical_beta_dist(TM, t, x, y)
+  for t in range(2, 50):#times+1):
+    print t
+    UM[t] =  [ [symetrical_beta_dist(I[0][t][x][y]) for y in xrange(X) ] for x in xrange(X)]
   
   return UM
 
