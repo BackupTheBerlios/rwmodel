@@ -9,6 +9,7 @@ import math
 #without changing interval
 
 heat_array =  [[0 for x in xrange(X) ] for y in xrange (Y)]
+ticks_labels = [ i for i in range(-15,16,5)]
 
 def gen_exp(I):
   for x in xrange(X):
@@ -46,11 +47,23 @@ def prepare_map(I, time, exp_flag):
 
 def plot_map (I, time, exp_flag):
   prepare_map(I, time, exp_flag)
+
+  a = plt.gca()
+
+  a.set_xticklabels(ticks_labels)
+  a.set_yticklabels(ticks_labels)
+  
   plt.show()
   plt.clf()
 
 def write_map(I, time, filename, exp_flag):
   prepare_map(I, time, exp_flag)
+  a = plt.gca()
+
+  a.set_xticklabels(ticks_labels)
+  a.set_yticklabels(ticks_labels)
+  
+  
   plt.savefig(str(filename) + '.png')
   plt.clf()
 
@@ -67,7 +80,7 @@ def prepare_model(M, time, exp_flag):
   plt.colorbar(heatmap)
   
   for b in xrange(blocks):
-    circle1 = matplotlib.patches.Circle((gaze_position[b][time][1], gaze_position[b][time][0]), radius=0.5, color='k', zorder=10,fill=False)
+    circle1 = matplotlib.patches.Circle((gaze_position[b][time][1], gaze_position[b][time][0]), radius=0.25, color='k', zorder=10,fill=False)
     gca().add_patch(circle1) 
     
   for i in xrange(len(targets_[0][time])):
@@ -76,14 +89,31 @@ def prepare_model(M, time, exp_flag):
   for i in xrange(len(distractors_[0][time])):
     circle1 = matplotlib.patches.Circle((distractors_[0][time][i][1]+1, distractors_[0][time][i][0]+1), radius=0.15, color='r', zorder=20)
     gca().add_patch(circle1) 
-     
+  circle_center = matplotlib.patches.Circle((15,15), radius=0.3, color='w', zorder=20)
+  circle_centroid_targ = matplotlib.patches.Circle((centroid_targets[time][1], centroid_targets[time][0]), radius=0.3, color='g', zorder=20)
+  circle_centroid_obj = matplotlib.patches.Circle((centroid_objects[time][1], centroid_objects[time][0]), radius=0.3, color='r', zorder=20)
+  gca().add_patch(circle_center)
+  gca().add_patch(circle_centroid_targ)
+  gca().add_patch(circle_centroid_obj)
+
 def plot_model(M, time,exp_flag):
   prepare_model(M, time, exp_flag)
+
+  a = plt.gca()
+
+  a.set_xticklabels(ticks_labels)
+  a.set_yticklabels(ticks_labels)
   plt.show()
   plt.clf()
 
 def write_model(M, time, filename,exp_flag):
   prepare_model(M, time,exp_flag)
+
+  a = plt.gca()
+
+  a.set_xticklabels(ticks_labels)
+  a.set_yticklabels(ticks_labels)
+  
   plt.savefig(str(filename) + '.png')
   plt.clf()
 

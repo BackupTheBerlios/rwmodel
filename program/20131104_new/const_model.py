@@ -13,7 +13,6 @@ import math
 param = 25
 MAX = 30
 bd = beta(param, param)
-
 def map_int_to_int ( (a, b), (c,d), X):
   return c + (((X-a) / (b-a)) *(d-c))
 
@@ -53,6 +52,24 @@ def dirichlet_at_grid((px,py)):
         grid[x][y] += 0.15
   return grid
 
+
+def compute_centroid(points):
+  x = 0
+  y = 0
+  for p in points:
+    x += p[0]
+    y += p[1]
+  x /= len(points)
+  y /= len(points)
+  x = int(round(x,0))
+  y = int(round(y,0))
+  
+  return (x,y)
+
+
+centroid_targets = [ compute_centroid(targets_[0][t]) for t in xrange(len(targets_[0]))]
+objects_ = [ targets_[0][t]+ distractors_[0][t] for t in xrange(len(targets_[0]))]
+centroid_objects = [ compute_centroid(objects_[t]) for t in xrange(len(objects_)) ]
 
 
 #const_model contains all blocks
