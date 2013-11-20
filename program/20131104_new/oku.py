@@ -8,27 +8,6 @@ from __future__ import division
 
 import time
 
-def normalize(b,t):
-  maxv = 0
-  minv = 1
-  for x in xrange(X):
-    for y in xrange(Y):
-      val = I[b][t][x][y]
-      if val > maxv:
-        maxv = val
-      if val < minv:
-        minv = val
-  print 'block', b
-  print 'max', maxv
-  print 'min', minv
-  normal = abs(int(math.log10(maxv)))
-  print 'normal', normal
-  if normal > 1:
-    print 'normalized ...'
-    for x in xrange(X):
-      for y in xrange(Y):
-        I[b][t][x][y] *= 10**normal
-
 def oku(b):
   print "Object knowledge update started ...\n"
   _start = time.time()
@@ -66,7 +45,7 @@ def oku(b):
         suma /= ant_size
         I[b][t][x][y] = suma
     
-    min_max_normal(I, b, t, X, Y, False)#normalize(b,t)
+    min_max_normal(I[b][t], False)#normalize(b,t)
     print "Time: ", t
   print "Object knowledge update successfully finished ..."
 #f = open('oku.out', 'w')

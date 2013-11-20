@@ -10,7 +10,7 @@ from __future__ import division
 from scipy.stats import beta
 import math
 
-param = 25
+param = 100
 MAX = 30
 bd = beta(param, param)
 def map_int_to_int ( (a, b), (c,d), X):
@@ -20,7 +20,7 @@ def map_dist_to_in (X):
   return map_int_to_int ((0,29), (0.5,1), X)
 
 def map_out_to_prob (X):
-  return map_int_to_int ((0,5.7), (0,1), X)
+  return map_int_to_int ((0,12), (0,1), X)
 
 def dirichlet_at_pos (dist):
   X = map_dist_to_in (dist)
@@ -67,9 +67,9 @@ def compute_centroid(points):
   return (x,y)
 
 
-centroid_targets = [ compute_centroid(targets_[0][t]) for t in xrange(len(targets_[0]))]
-objects_ = [ targets_[0][t]+ distractors_[0][t] for t in xrange(len(targets_[0]))]
-centroid_objects = [ compute_centroid(objects_[t]) for t in xrange(len(objects_)) ]
+#centroid_targets = [ compute_centroid(targets_[0][t]) for t in xrange(len(targets_[0]))]
+#objects_ = [ targets_[0][t]+ distractors_[0][t] for t in xrange(len(targets_[0]))]
+#centroid_objects = [ compute_centroid(objects_[t]) for t in xrange(len(objects_)) ]
 
 
 #const_model contains all blocks

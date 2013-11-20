@@ -14,35 +14,6 @@ from __future__ import division
 import time
 import math
 
-
-def normalize(b,t):
-  maxv = 0
-  minv =1
-  for x in xrange(X):
-    for y in xrange(Y):
-      val = I_T[b][t][x][y]
-      if val > maxv:
-        maxv = val
-      if val < minv:
-        minv = val
-  print 'block', b
-  print 'max', maxv
-  print 'min', minv
-  normal = abs(int(math.log10(maxv)))
-  print 'normal', normal
-  if normal > 1:
-    print 'normalized ...'
-    for x in xrange(X):
-      for y in xrange(Y):
-        I_T[b][t][x][y] *= 10**normal
-        
-        
-        #eliminate very small values
-        diff_ = abs(int(math.log10(I_T[b][t][x][y])))-280
-        if diff_ > 0:
-          I_T[b][t][x][y] *= 10**diff_
-        
-
 def tku(b):
   print "Target knowledge update started ..."
   start_ = time.time()
@@ -73,7 +44,7 @@ def tku(b):
           suma2 += target_i[i][x][y]#*I_T[t-1][x][y]
         suma2 /=targets
         I_T[b][t][x][y] = suma2
-    min_max_normal(I_T, b, t, X, Y, True)#normalize(b,t)
+    min_max_normal(I_T[b][t], True)#normalize(b,t)
   
   end_ = time.time()
   print "Target knowledge update finished ..."

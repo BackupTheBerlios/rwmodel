@@ -2,6 +2,7 @@
 import csv
 import os
 import time
+import numpy
 
 def roundto(angle, precision = 0.5):
   correction = 0.5 if angle > 0 else -0.5
@@ -77,9 +78,9 @@ M = [(0, 0) for t in xrange(times + 1) ]
 targets_ = [ [ [ (0,0) for i in xrange(targets) ] for t in xrange(times+1) ] for b in xrange(blocks)]
 distractors_  = [ [ [(0,0) for i in xrange(objects - targets) ] for t in xrange(times+1) ] for b in xrange(blocks)]
 print "(O,V,T,M) initialized ..."
-I= [ [ [ [0.5 for x in xrange(Y)] for y in xrange(X)] for t in xrange(times +1)] for b in xrange(blocks)]
+I= [ [ [ [numpy.random.uniform() for x in xrange(Y)] for y in xrange(X)] for t in xrange(times +1)] for b in xrange(blocks)]
 print "(I) initialized ..."
-I_T= [[[[0.5 for x in xrange(Y)] for y in xrange(X)] for t in xrange(times +1)] for b in xrange(blocks)]
+I_T= [[[[numpy.random.uniform() for x in xrange(Y)] for y in xrange(X)] for t in xrange(times +1)] for b in xrange(blocks)]
 print "(I_T) initialized ..."
 print "Initialization took", (time.time() - _start)/60, "minutes ..."
 print "Initializing variables and arrays ..."
