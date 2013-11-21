@@ -61,7 +61,7 @@ for b in xrange(blocks):
 
 for b in xrange(blocks):
   for i in xrange(targets):
-    for t in xrange(times+1):
+    for t in xrange(times-1):
       target_tib[b][i][t] = target_itb[b][t][i]
 
 f.close()
