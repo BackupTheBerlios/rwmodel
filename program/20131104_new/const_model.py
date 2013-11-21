@@ -20,7 +20,7 @@ def map_dist_to_in (X):
   return map_int_to_int ((0,29), (0.5,1), X)
 
 def map_out_to_prob (X):
-  return map_int_to_int ((0,12), (0,1), X)
+  return map_int_to_int ((0,13), (0,1), X)
 
 def dirichlet_at_pos (dist):
   X = map_dist_to_in (dist)

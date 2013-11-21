@@ -45,12 +45,10 @@ def grid_to_prob(grid):
   return [[ map_int_to_int((min_val, max_val),(0,1),grid[x][y]) for y in xrange(Y)] for x in xrange(X)]
 
 def um(TM):
-  beta_dist_domain = [0.1, 0.5, 0.95]
-  beta_dist_dict = symetrical_beta_dist_arr(beta_dist_domain)
   UM = []
   for t in range(2, times-2):
     print t    
-    UM.append([ [beta_dist_dict[dynamic_object_model(0,t,x,y)] for y in xrange(X) ] for x in xrange(X)])
-    UM[t-2] = mult_by_pos(UM[t-2], grid_to_prob(TM[t]), 30)
+    UM.append([ [bd.pdf(dynamic_object_model(0,t,x,y)) for y in xrange(X) ] for x in xrange(X)])
+    UM[t-2] = mult_by_pos(UM[t-2], TM[t], 30)
   return UM
 
