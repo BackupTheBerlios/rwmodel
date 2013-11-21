@@ -87,10 +87,10 @@ def prepare_model(M, time, exp_flag):
     gca().add_patch(polygon1) 
     
   for i in xrange(len(targets_[0][time])):
-    circle1 = matplotlib.patches.Circle((targets_[0][time][i][1]+1, targets_[0][time][i][0]+1), radius=0.15, color='g', zorder=20)
+    circle1 = matplotlib.patches.Circle((targets_[0][time][i][1], targets_[0][time][i][0]), radius=0.15, color='g', zorder=20)
     gca().add_patch(circle1) 
   for i in xrange(len(distractors_[0][time])):
-    circle1 = matplotlib.patches.Circle((distractors_[0][time][i][1]+1, distractors_[0][time][i][0]+1), radius=0.15, color='r', zorder=20)
+    circle1 = matplotlib.patches.Circle((distractors_[0][time][i][1], distractors_[0][time][i][0]), radius=0.15, color='r', zorder=20)
     gca().add_patch(circle1) 
   circle_center = matplotlib.patches.Circle((15,15), radius=0.3, color='w', zorder=20)
   circle_centroid_targ = matplotlib.patches.Circle((centroid_targets[time][1], centroid_targets[time][0]), radius=0.3, color='g', zorder=20)

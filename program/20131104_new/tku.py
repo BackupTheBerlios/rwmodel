@@ -13,13 +13,14 @@ from __future__ import division
 #from grid import *
 import time
 import math
+target_tib = [ [ [ [ [0 for y in xrange(X)] for x in xrange(Y)] for t in xrange(times+1)] for i in xrange(targets)] for b in xrange(blocks)]
+
 
 def tku(b):
   print "Target knowledge update started ..."
   start_ = time.time()
   target_i= [[[0 for x in xrange(Y)] for y in xrange(X)] for i in xrange(targets)]
 
-  target_it = []
   for t in range(2,times+1 ):  #times+1
     print 'time is:' , t
     for i in xrange(targets):
@@ -34,7 +35,7 @@ def tku(b):
               suma1 += (target_observation_model(b,t,i,j,k)*I[b][t][j][k])
           suma1 /= ant_size
           target_i[i][x][y] = suma1
-    target_it.append(target_i)
+          target_tib[b][i][t][x][y] = suma1
     print "over targets ..."
 
     for x in xrange(X):
@@ -50,19 +51,11 @@ def tku(b):
   print "Target knowledge update finished ..."
   print 'Elapsed time is ',(end_-start_)/60, 'minutes'
   
-  return target_it
 
 f = open('tku.out', 'w')
-target_itb = []
-target_tib = [ [ [ [ [0 for y in xrange(X)] for x in xrange(Y)] for t in xrange(times+1)] for i in xrange(targets)] for b in xrange(blocks)]
-
 for b in xrange(blocks):
-  target_itb.append(tku(b))
+  tku(b)
 
-for b in xrange(blocks):
-  for i in xrange(targets):
-    for t in xrange(times-1):
-      target_tib[b][i][t] = target_itb[b][t][i]
 
 f.close()
 
