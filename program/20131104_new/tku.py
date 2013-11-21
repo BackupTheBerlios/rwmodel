@@ -54,7 +54,15 @@ def tku(b):
 
 f = open('tku.out', 'w')
 target_itb = []
+target_tib = [ [ [0 for t in xrange(times+1)] for i in xrange(targets)] for b in xrange(blocks)]
+
 for b in xrange(blocks):
   target_itb.append(tku(b))
+
+for b in xrange(blocks):
+  for i in xrange(targets):
+    for t in xrange(times+1):
+      target_tib[b][i][t] = target_itb[b][t][i]
+
 f.close()
 
