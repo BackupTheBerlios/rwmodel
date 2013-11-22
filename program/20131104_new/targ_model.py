@@ -52,6 +52,7 @@ def tm():
     
     TM[t] = root_by_pos(TM[t], len(targets_), MAX)
     TM[t] = [ [map_int_to_int((0,0.11), (0,1),TM[t][x][y]) for y in xrange(MAX)] for x in xrange(MAX)]
+    CM[t] = [ [map_int_to_int((0,0.23), (0,1), CM[t][x][y]) for y in xrange(MAX)] for x in xrange(MAX)]
     CM_T = set_min_arr(CM[t], 0.2)
     TM[t] = mult_by_pos(TM[t], CM_T, MAX)
   

@@ -48,7 +48,7 @@ def um(TM):
   UM = []
   for t in range(2, times-2):
     print t    
-    UM.append([ [bd.pdf(dynamic_object_model(0,t,x,y)) for y in xrange(X) ] for x in xrange(X)])
+    UM.append([ [bd.pdf((dynamic_object_model(0,t,x,y)* dynamic_object_model(1,t,x,y) * dynamic_object_model(2,t,x,y)*dynamic_object_model(3,t,x,y) * dynamic_object_model(4,t,x,y))**(1/blocks)) for y in xrange(X) ] for x in xrange(X)])
     UM[t-2] = mult_by_pos(UM[t-2], TM[t], 30)
   return UM
 
