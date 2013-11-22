@@ -10,7 +10,7 @@ from __future__ import division
 from scipy.stats import beta
 import math
 
-param = 100
+param =75
 MAX = 30
 bd = beta(param, param)
 def map_int_to_int ( (a, b), (c,d), X):
@@ -28,7 +28,7 @@ def dirichlet_at_pos (dist):
   return map_out_to_prob(Y)
 
 def dist_between_pos ((x1,y1), (x2,y2)):
-  return math.sqrt(abs(x2-x1)**2 + abs(y2-y1)**2)
+  return math.sqrt(abs((x2-x1)/4)**2 + abs((y2-y1)/4)**2)
 
 def mult_by_pos (ar1, ar2, MAX):
   return [ [ar1[x][y] * ar2[x][y] for y in xrange(MAX)] for x in xrange(MAX)]
@@ -67,12 +67,12 @@ def compute_centroid(points):
   return (x,y)
 
 
-centroid_targets = [ compute_centroid(targets_[0][t]) for t in xrange(len(targets_[0]))]
-objects_ = [ targets_[0][t]+ distractors_[0][t] for t in xrange(len(targets_[0]))]
-centroid_objects = [ compute_centroid(objects_[t]) for t in xrange(len(objects_)) ]
+#centroid_targets = [ compute_centroid(targets_[0][t]) for t in xrange(len(targets_[0]))]
+#objects_ = [ targets_[0][t]+ distractors_[0][t] for t in xrange(len(targets_[0]))]
+#centroid_objects = [ compute_centroid(objects_[t]) for t in xrange(len(objects_)) ]
 
-crowding_objects = [ 0 for t in xrange(len(targets_[0]))]
-
+#crowding_objects = [ 0 for t in xrange(len(targets_[0]))]
+'''
 min_v_default= 16*dist_between_pos((0,0), (29,29))
 min_arg_default = (0,0)
 min_v = min_v_default
@@ -94,7 +94,7 @@ for t in xrange(0, times):
   crowding_objects[t] = min_arg
   min_v = min_v_default
   min_arg = min_arg_default
-  
+'''  
 #const_model contains all blocks
 
 #probability of gaze position
