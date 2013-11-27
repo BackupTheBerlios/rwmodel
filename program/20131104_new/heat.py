@@ -25,6 +25,11 @@ def print_heat_exp_new2(I,X, Y, time,heat_array):
 def gen_polygon_pt((x,y), rad):
   return [(x-rad, y), (x, y-rad),  (x+rad, y),(x, y+rad)]
 
+def plot_cross(plt, (x,y), rad, color):
+  pts=gen_polygon_pt((x,y), rad)
+  plt.plot([pts[0][1], pts[2][1]], [pts[0][0], pts[2][0]], linewidth=1, linestyle="-", c = color, zorder = 30)
+  plt.plot([pts[1][1], pts[3][1]], [pts[1][0], pts[3][0]], linewidth=1, linestyle="-", c = color, zorder = 30)
+
 def plot_map_basic(I):
   data  = np.asarray(I)
   heatmap = plt.pcolor(data)
@@ -82,10 +87,13 @@ def prepare_model(M, time, exp_flag):
   plt.colorbar(heatmap)
   
   for b in xrange(blocks):
-    pts = gen_polygon_pt((gaze_position[b][time][1], gaze_position[b][time][0]), 0.7)
-    polygon1 = matplotlib.patches.Polygon(pts, color='k', fill =False, zorder=25)
-    gca().add_patch(polygon1) 
-    
+    #pts = gen_polygon_pt((gaze_position[b][time][1], gaze_position[b][time][0]), 0.7)
+    #polygon1 = matplotlib.patches.Polygon(pts, color='k', fill =False, zorder=25)
+    #gca().add_patch(polygon1)
+    plot_cross(plt, (gaze_position[b][time][1], gaze_position[b][time][0]),0.3, 'k')   
+  
+
+
   for i in xrange(len(targets_[0][time])):
     circle1 = matplotlib.patches.Circle((targets_[0][time][i][1], targets_[0][time][i][0]), radius=0.15, color='g', zorder=20)
     gca().add_patch(circle1) 
