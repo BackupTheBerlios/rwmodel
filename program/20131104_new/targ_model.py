@@ -18,9 +18,15 @@ def gaze_target_model((x,y), t, i):
   g_x = gaze_position[0][t][0]
   g_y = gaze_position[0][t][1]
   result = math.exp( -(dist_between_pos((x,y), targets_[0][t][i]))**2 / 0.25)
-  if result < 0.75:
-    result += 0.25
+  result /=900
   return result
+
+#P(T^t_i|C^t)
+def gaze_target_model_pt((x,y),(x2,y2)) :
+  result = math.exp( -(dist_between_pos((x,y),(x2,y2)))**2 / 0.25)
+  return result/900
+
+
 
 def set_min_arr(ar, m):
   L = len(ar)
@@ -36,25 +42,25 @@ def tm():
   MAX = 30
   #const
   #targ
-  for t in range(2, times-1):
-    for i in xrange(targets):
-      suma = [ [ 0 for y in xrange(MAX) ] for x in xrange(MAX)]
-      for b in xrange(blocks):
-        GTM = [[ gaze_target_model((x,y),t,i) for y in xrange(MAX) ] for x in xrange(MAX)] 
-        min_max_normal(target_tib[b][i][t],False)
-        TAR_ITB = set_min_arr(target_tib[b][i][t], 0.2)
-        TAR_ITB =  mult_by_pos(GTM, TAR_ITB, MAX)
-        suma = add_by_pos(suma, TAR_ITB, MAX)
-      
-      suma = div_by_pos(suma, blocks, MAX)
-      TM[t] = mult_by_pos(TM[t], suma, MAX)
+  for t in range(2, times-1):#times -1
+    temp = [[1 for y in xrange(MAX) ] for x in xrange(MAX)]
+    targ = [0,1,2,3]
+    for ind in xrange(len(targ)):#targets
+      i = targ[ind]
+      GTM = [[ gaze_target_model((x,y),t,i) for y in xrange(MAX) ] for x in xrange(MAX)] 
+      #temp =  mult_by_pos(GTM, temp, MAX)
+      TM[t] = mult_by_pos(TM[t], target_tib[0][i][t],MAX)
+      TM[t] = mult_by_pos(TM[t], GTM, MAX)
 
     
-    TM[t] = root_by_pos(TM[t], len(targets_), MAX)
-    TM[t] = [ [map_int_to_int((0,0.3), (0,1),TM[t][x][y]) for y in xrange(MAX)] for x in xrange(MAX)]
-    CM[t] = [ [map_int_to_int((0,0.54), (0,1), CM[t][x][y]) for y in xrange(MAX)] for x in xrange(MAX)]
-    CM_T = set_min_arr(CM[t], 0.2)
-    TM[t] = mult_by_pos(TM[t], CM_T, MAX)
-  
+    #TM[t] = root_by_pos(TM[t], len(targets_), MAX)
+    TM[t] = mult_by_pos(TM[t], CM[t], MAX)
+    
+    (minm, maxm) = calc_max(TM[t])
+    for x in xrnage(MAX):
+      for y in xrange(MAX):
+        if TM[t][x][y] != maxm:
+          TM[t][x][y] = 0
+
   return TM
 
