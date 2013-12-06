@@ -13,42 +13,45 @@ from scipy.stats import beta
 from const_model import *
 #targ_model contains all blocks
 UM = []
-param= 0.075
+MAX = 30
+param= 2
 bd = beta(param, param)
-  
-#P(I^t_(x,y)|C^t piC)
-def symetrical_beta_dist(p):
-  return bd.pdf(p)
 
-def symetrical_beta_dist_arr(ar):
-  res = [ bd.pdf(i) for i in ar ]
-  sequence  = zip(ar, res)
-  d = {key: value for (key, value) in sequence}
-  return d
+ar = [[ 0 for x in xrange(X)] for y in xrange(Y)]
 
-#transforms grid of small probabilities to grid of it exps
-def grid_to_exp(grid):
-  return [[ int(math.log10(grid[x][y])) for y in xrange(X) ] for x in xrange(X)]
+def calc_max(I):
+  maxm = 0
+  minm = 1
+  for x in xrange(MAX):
+    for y in xrange(MAX):
+      if I[x][y] > maxm:
+        maxm = I[x][y]
+      if I[x][y] < minm:
+        minm = I[x][y]
+  return (minm, maxm)
 
-#transforms grid of small probabilities to grid of probabilities
-def grid_to_prob(grid):
-  grid = grid_to_exp(grid)
-  max_val = -20
-  min_val = 0
+def gen_exp_ar(I):
   for x in xrange(X):
     for y in xrange(Y):
-      if grid[x][y]<min_val:
-        min_val = grid[x][y]
-      if grid[x][y] > max_val:
-        max_val = grid[x][y]
-  
-  return [[ map_int_to_int((min_val, max_val),(0,1),grid[x][y]) for y in xrange(Y)] for x in xrange(X)]
+      ar[x][y] = int(math.log10(I[x][y]))
+  return  ar 
+
 
 def um(TM):
-  UM = []
-  for t in range(2, times-2):
-    print t    
-    UM.append([ [bd.pdf((dynamic_object_model(0,t,x,y)* dynamic_object_model(1,t,x,y) * dynamic_object_model(2,t,x,y)*dynamic_object_model(3,t,x,y) * dynamic_object_model(4,t,x,y))**(1/blocks)) for y in xrange(X) ] for x in xrange(X)])
-    UM[t-2] = mult_by_pos(UM[t-2], TM[t], 30)
+  UM =[[[ 0 for y in xrange(MAX)] for x in xrange(MAX)] for t in xrange(times+1)] 
+  for t in range(2,times -1):
+    print t
+    arr = gen_exp_ar(I[0][t])
+    interval = calc_max(arr)
+    for x in xrange(MAX):
+      for y in xrange(MAX):
+        UM[t][x][y] = bd.pdf(map_int_to_int(interval, (0,1), arr[x][y]))
+        '''
+        if I[0][t][x][y] > 0.011:
+          UM[t][x][y] = 0.9
+        else:
+          UM[t][x][y] = I[0][t][x][y]
+        '''
+    #UM[t-2] = mult_by_pos(UM[t-2], TM[t], 30)
   return UM
 
