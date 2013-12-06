@@ -134,20 +134,5 @@ def write_model(M, time, filename,exp_flag):
   plt.savefig(str(filename) + '.png')
   plt.clf()
 
-def write_map(I, X, Y, time, targets_, distractors_, filename, heat_array):
-  heat_array = print_heat_exp_new(I, X, Y, time,heat_array)
-  data = np.asarray(heat_array)
-  heatmap = plt.pcolor(data)
-  plt.xlabel('time: ' + str(time) + ' targ: ' + str(targets_[time]) +' (black)'+ '\n' + 'dist: '+ str(distractors_[time]) + ' (transparent)', fontsize=10)
-  for i in xrange(len(targets_[time])):
-    circle1 = matplotlib.patches.Circle((targets_[time][i][1]+1, targets_[time][i][0]+1), radius=0.5, color='k', zorder=10)
-    gca().add_patch(circle1) 
-  for i in xrange(len(distractors_[time])):
-    circle1 = matplotlib.patches.Circle((distractors_[time][i][1]+1, distractors_[time][i][0]+1), radius=0.5, color='k', zorder=10,fill=False)
-    gca().add_patch(circle1)
-  plt.savefig(str(filename)+'.png')
-  plt.clf()
-
-
 #sudo ffmpeg -qscale 5 -r 20 -i %01d.png  movie.mp4
  
