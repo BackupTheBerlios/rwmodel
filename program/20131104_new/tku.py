@@ -53,7 +53,7 @@ def tku(b):
   
 
 f = open('tku.out', 'w')
-for b in xrange(blocks):
+for b in xrange(1):#blocks
   tku(b)
 
 

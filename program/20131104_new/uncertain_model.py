@@ -36,22 +36,47 @@ def gen_exp_ar(I):
       ar[x][y] = int(math.log10(I[x][y]))
   return  ar 
 
+def calc_traj_dist(t1, t2):
+  suma = 0
+  count = 0
+  for t in range(3,449):
+    count = count+1
+    suma += dist_between_pos(t1[t], t2[t])
 
-def um(TM):
-  UM =[[[ 0 for y in xrange(MAX)] for x in xrange(MAX)] for t in xrange(times+1)] 
-  for t in range(2,times -1):
+  return suma/count
+    
+
+
+def um(TM, show_traj):
+  UM =[[[ 0 for y in xrange(MAX)] for x in xrange(MAX)] for t in xrange(times+1)]
+  UM_trajectory = [ (0,0) for t in xrange(times+1)]
+  for t in range(3,times -1):
     print t
-    arr = gen_exp_ar(I[0][t])
-    interval = calc_max(arr)
+    arr = I[0][t]
+    
+    #domain specific code, remove if code changed
+    
     for x in xrange(MAX):
       for y in xrange(MAX):
-        UM[t][x][y] = bd.pdf(map_int_to_int(interval, (0,1), arr[x][y]))
-        '''
-        if I[0][t][x][y] > 0.011:
-          UM[t][x][y] = 0.9
-        else:
-          UM[t][x][y] = I[0][t][x][y]
-        '''
-    #UM[t-2] = mult_by_pos(UM[t-2], TM[t], 30)
+        if arr[x][y] > 0.0120:
+          arr[x][y] = 0.0120 
+    
+    interval = calc_max(arr)
+    print interval[0], interval[1]
+    for x in xrange(MAX):
+      for y in xrange(MAX):
+        UM[t][x][y] = bd.pdf(map_int_to_int(interval, (0,1),arr[x][y]))*TM[t][x][y]
+       
+    (minm, maxm) = calc_max(UM[t])
+    
+    if show_traj:
+      for x in xrange(MAX):
+        for y in xrange(MAX):
+          if UM[t][x][y] != maxm:
+            UM[t][x][y] = 0
+          else:
+            UM_trajectory[t] = (x,y)
+
+   #UM[t-2] = mult_by_pos(UM[t-2], TM[t], 30)
   return UM
 

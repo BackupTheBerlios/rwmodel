@@ -19,7 +19,7 @@ def oku(b):
       for y in xrange(Y):
         multiplicant =1
         multiplicant1 =1
-        suma =0
+        suma =1
 
         x1 = min(x-bound1, antecedent)
         x2 = min(bound2 -x, antecedent+1)
@@ -39,16 +39,18 @@ def oku(b):
 
         for j in range(x-x1, x+x2):
           for i in range(y-y1, y+y2):
-            multiplicant *= dynamic_object_model(b,t,j, i)
-            suma += multiplicant
-        suma *= observation_model(b,t,x,y)
-        suma /= ant_size
+            multiplicant1 = multiplicant * dynamic_object_model(b,t,j, i)
+            multiplicant1 = multiplicant1**(1/2)
+            suma *= multiplicant1
+        suma = suma **(1/ant_size)
+        suma*= observation_model(b,t,x,y)
+        #suma /= ant_size
         I[b][t][x][y] = suma
     
     min_max_normal(I[b][t], False)#normalize(b,t)
     print "Time: ", t
   print "Object knowledge update successfully finished ..."
 #f = open('oku.out', 'w')
-for b in xrange(blocks):
+for b in xrange(1):
   oku(b)
 #f.close()

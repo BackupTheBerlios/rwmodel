@@ -67,12 +67,12 @@ def compute_centroid(points):
   return (x,y)
 
 
-#centroid_targets = [ compute_centroid(targets_[0][t]) for t in xrange(len(targets_[0]))]
-#objects_ = [ targets_[0][t]+ distractors_[0][t] for t in xrange(len(targets_[0]))]
-#centroid_objects = [ compute_centroid(objects_[t]) for t in xrange(len(objects_)) ]
+centroid_targets = [ compute_centroid(targets_[0][t]) for t in xrange(len(targets_[0]))]
+objects_ = [ targets_[0][t]+ distractors_[0][t] for t in xrange(len(targets_[0]))]
+centroid_objects = [ compute_centroid(objects_[t]) for t in xrange(len(objects_)) ]
 
-#crowding_objects = [ 0 for t in xrange(len(targets_[0]))]
-'''
+crowding_objects = [ 0 for t in xrange(len(targets_[0]))]
+
 min_v_default= 16*dist_between_pos((0,0), (29,29))
 min_arg_default = (0,0)
 min_v = min_v_default
@@ -94,7 +94,7 @@ for t in xrange(0, times):
   crowding_objects[t] = min_arg
   min_v = min_v_default
   min_arg = min_arg_default
-'''  
+
 #const_model contains all blocks
 
 #probability of gaze position

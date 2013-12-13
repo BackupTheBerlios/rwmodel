@@ -12,6 +12,7 @@ from const_model import *
 
 #targ_model contains all blocks
 TM = [ [ [ 1 for y in xrange(Y) ] for x in xrange(X) ] for t in xrange(times+1) ]
+TM_trajectory = [ (0,0) for t in xrange(times+1) ]
 
 #P(T^t_i|C^t)
 def gaze_target_model((x,y), t, i):
@@ -38,7 +39,7 @@ def set_min_arr(ar, m):
   return result
 
 #probability of gaze position
-def tm():
+def tm(show_traj):
   MAX = 30
   #const
   #targ
@@ -55,12 +56,18 @@ def tm():
     
     #TM[t] = root_by_pos(TM[t], len(targets_), MAX)
     TM[t] = mult_by_pos(TM[t], CM[t], MAX)
-    
+     
     (minm, maxm) = calc_max(TM[t])
-    for x in xrnage(MAX):
-      for y in xrange(MAX):
-        if TM[t][x][y] != maxm:
-          TM[t][x][y] = 0
+     
+    if show_traj:
+      for x in xrange(MAX):
+        for y in xrange(MAX):
+          if TM[t][x][y] != maxm:
+            TM[t][x][y] = 0
+          else:
+            TM_trajectory[t] = (x,y)
 
+
+    
   return TM
 

@@ -9,7 +9,7 @@ def roundto(angle, precision = 0.5):
   return int(angle / precision + correction) * precision
 
 def set_variables(rows, b):
-  for t in xrange(len(rows)):
+  for t in xrange(times):
     x = roundto(float(rows[t][22]), 0.25)
     y = roundto(float(rows[t][23]), 0.25)
     x = int(x + 15)
@@ -60,11 +60,11 @@ row[4] ... trial 2-0
 print "Reading CSV blocks ...\n"
 blocks_ = []
 block = 0
-blocks_.append(read_block('"10"', '"138"'))
-blocks_.append(read_block('"24"','"138"'))
-blocks_.append(read_block('"41"', '"138"'))
-blocks_.append(read_block('"53"', '"138"'))
-blocks_.append(read_block('"70"', '"138"'))
+blocks_.append(read_block('"26"', '"446"'))
+blocks_.append(read_block('"28"','"446"'))
+blocks_.append(read_block('"42"', '"446"'))
+blocks_.append(read_block('"51"', '"446"'))
+blocks_.append(read_block('"65"', '"446"'))
 
 print 'len rows ...', len(blocks_[0]), len(blocks_[1]), len(blocks_[2]), len(blocks_[3]), len(blocks_[4])
 
@@ -90,10 +90,10 @@ antecedent_cells = [ [ [(0, 0)] for t in xrange(times + 1) ] for b in xrange(blo
 #grid_inference = [ [ 0 for x in xrange(Y) ] for y in xrange(X) ]
 
 print "Initializing variables from csv data ...\n"
-for b in xrange(blocks):
+for b in xrange(1):#blocks
   rows = blocks_[b]
   set_variables(rows, b)
-times = 488 #according to the smallest block
+times = 450 #according to the smallest block
 print "Initialization successfull ..."
 print "Process finished ..."
 end_ = time.time()
