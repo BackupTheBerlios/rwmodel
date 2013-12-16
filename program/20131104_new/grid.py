@@ -7,9 +7,11 @@ from __future__ import division
 #purpose: occupancy grid
 import os
 os.getcwd()
+'''
 import imp
 imp.load_source('vars', 'var.py')
 from vars import *
+'''
 from datetime import datetime
 import math
 #P(O^0_(x,y)) foreach (x,y)

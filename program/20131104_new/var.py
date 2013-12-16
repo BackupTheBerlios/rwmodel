@@ -9,26 +9,26 @@ def roundto(angle, precision = 0.5):
   return int(angle / precision + correction) * precision
 
 def set_variables(rows, b):
-  for t in xrange(times):
-    x = roundto(float(rows[t][22]), 0.25)
-    y = roundto(float(rows[t][23]), 0.25)
-    x = int(x + 15)
-    y = int(y + 15)
-    gaze_position[b][t] = (x, y)
-    counter = 0 #targets counter
-    for i in range(6, 21, 2):
-      x = roundto(float(rows[t][i]), 0.25)
-      y = roundto(float(rows[t][(i + 1)]), 0.25)
-      x = int(x + 15)
-      y = int(y + 15)
-      if counter < 4: 
-        targets_[b][t][counter] = (x,y)
-      else:
-        distractors_[b][t][counter -4] = (x,y)
-      counter +=1
-      O[b][t][x][y] = 1
-      if i>=6 and i<=12:
-        T[b][t][(i-6)/2] =(x,y)
+	for t in xrange(times):
+		x = roundto(float(rows[t][22]), 0.25)
+		y = roundto(float(rows[t][23]), 0.25)
+		x = int(x + 15)
+		y = int(y + 15)
+		gaze_position[b][t] = (x, y)
+		counter = 0 #targets counter
+		for i in range(6, 21, 2):
+			x = roundto(float(rows[t][i]), 0.25)
+			y = roundto(float(rows[t][(i + 1)]), 0.25)
+			x = int(x + 15)
+			y = int(y + 15)
+			if counter < 4: 
+				targets_[b][t][counter] = (x,y)
+			else:
+				distractors_[b][t][counter -4] = (x,y)
+			counter +=1
+			O[b][t][x][y] = 1
+			if i>=6 and i<=12:
+				T[b][t][(i-6)/2] =(x,y)
       
 def read_block(trial, track):
   with open('../dataset/dataset_Erik.csv', 'rb') as csvfile:
