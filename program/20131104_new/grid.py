@@ -96,7 +96,7 @@ def min_max_normal(I, I_T_flag):
   if normal > 1:
     for x in xrange(L):
       for y in xrange(L):
-        I[x][y] *= 10**normal
+        I[x][y] *= 10**(normal)
 
         #eliminate small values if I_T flag is set 
         if I_T_flag:

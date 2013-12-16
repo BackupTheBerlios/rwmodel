@@ -14,21 +14,10 @@ from const_model import *
 #targ_model contains all blocks
 UM = []
 MAX = 30
-param= 2
+param=2 #2 
 bd = beta(param, param)
 
 ar = [[ 0 for x in xrange(X)] for y in xrange(Y)]
-
-def calc_max(I):
-  maxm = 0
-  minm = 1
-  for x in xrange(MAX):
-    for y in xrange(MAX):
-      if I[x][y] > maxm:
-        maxm = I[x][y]
-      if I[x][y] < minm:
-        minm = I[x][y]
-  return (minm, maxm)
 
 def gen_exp_ar(I):
   for x in xrange(X):
@@ -36,21 +25,13 @@ def gen_exp_ar(I):
       ar[x][y] = int(math.log10(I[x][y]))
   return  ar 
 
-def calc_traj_dist(t1, t2):
-  suma = 0
-  count = 0
-  for t in range(3,449):
-    count = count+1
-    suma += dist_between_pos(t1[t], t2[t])
-
-  return suma/count
-    
+   
 
 
 def um(TM, show_traj):
   UM =[[[ 0 for y in xrange(MAX)] for x in xrange(MAX)] for t in xrange(times+1)]
   UM_trajectory = [ (0,0) for t in xrange(times+1)]
-  for t in range(3,times -1):
+  for t in range(3,times-1):#times-1
     print t
     arr = I[0][t]
     
