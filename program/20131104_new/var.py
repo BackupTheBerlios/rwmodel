@@ -4,6 +4,8 @@ import os
 import time
 import numpy
 
+MAX=30
+
 def roundto(angle, precision = 0.5):
   correction = 0.5 if angle > 0 else -0.5
   return int(angle / precision + correction) * precision
