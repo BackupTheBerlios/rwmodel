@@ -1,0 +1,28 @@
+CLASSES:
+class grid:
+	var: blocks, X, Y, antecedent, bound1, bound2, blocks_, times, O, T, M , targets_, distractors_, I, I_T,
+	prep_model: centroid_targets, objects_, centroid_objects, crowding_objects
+	const_model: param, MAX, bd, CM, CM_trajectory
+	targ_model: TM, TM_trajectory
+	uncertain_model: UM, UM_trajectory
+	heat.py aspect
+	
+
+FUNCTIONS:
+files with function is import enough
+	grid.py, prep_model.py
+run oku, tku
+	
+
+RANGES:
+
+new
+grid.py ->kum.py
+added debug.py
+MAX -> size
+
+TODO:
+make distance function obsolete
+	
+ 
+	
