@@ -1,8 +1,12 @@
 from __future__ import division
 
-from datetime import datetime
 import math
+#kum = knowledge update methods
 
+def roundto(angle, precision = 0.5):
+	correction = 0.5 if angle > 0 else -0.5
+	return int(angle / precision + correction) * precision
+    
 def calc_max_grid(I):
 	maxm = 0
 	minm = 1
@@ -61,10 +65,12 @@ def target_observation_model(b,t,i,x,y):
 		return 0.5-result
 
 def calc_antecedent_bounds(x,y):
-	x1 = min(x-bound1, antecedent)
-	x2 = min(bound2 -x, antecedent+1)
-	y1 = min(y -bound1, antecedent)
-	y2 = min(bound2 - y, antecedent+1)
+	min_bound = 0
+	max_bound = 30
+	x1 = min(x-min_bound, antecedent)
+	x2 = min(max_bound -x, antecedent+1)
+	y1 = min(y -min_bound, antecedent)
+	y2 = min(max_bound - y, antecedent+1)
 
 	ant_size = (x1+x2)*(y1+y2) #size of antecedent cells
 
@@ -81,11 +87,11 @@ def min_max_normal(I, I_T_flag):
 	L = len(I)
 	for x in xrange(L):
 		for y in xrange(L):
-		val = I[x][y]
-		if val > maxv:
-			maxv = val
-		if val < minv:
-			minv = val
+			val = I[x][y]
+			if val > maxv:
+				maxv = val
+			if val < minv:
+				minv = val
 	print 'block', b
 	print 'max', maxv
 	print 'min', minv

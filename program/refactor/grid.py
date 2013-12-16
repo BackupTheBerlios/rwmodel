@@ -11,42 +11,40 @@ class Grid:
 		self.dist_size = dist_size;
 		self.time = time
 		
-		self.O = [ [ [ [ 
-					0 
-					for x in xrange(Y) ]
-						for y in xrange(X) ] 
-							for t in xrange(time + 1) ]
-								for b in xrange(blocks_size) ] 
+		self.O = [ [ [ [ 0 for x in xrange(self.X) ]  
+						for y in xrange(self.Y) ]  
+							for t in xrange(self.time + 1) ] 
+								for b in xrange(self.blocks_size) ] 
 		
 		self.I= [ [ [ [
 					numpy.random.uniform() 
-					for x in xrange(Y)]
-						for y in xrange(X) ]
-							for t in xrange(time +1)]
-								for b in xrange(blocks_size)]
+					for x in xrange(self.X)]
+						for y in xrange(self.Y) ]
+							for t in xrange(self.time +1)]
+								for b in xrange(self.blocks_size)]
 		
 		self.IT= [ [ [ [
 					numpy.random.uniform()
-						for x in xrange(Y)]
-							for y in xrange(X)]
-								for t in xrange(time +1)]
-									for b in xrange(blocks_size)]
+						for x in xrange(self.X)]
+							for y in xrange(self.Y)]
+								for t in xrange(self.time +1)]
+									for b in xrange(self.blocks_size)]
 		
 		self.targ = [ [ [ 
 						(0,0)
-							for i in xrange(targ_size) ] 
-								for t in xrange(time+1) ] 
-									for b in xrange(blocks_size)]
+							for i in xrange(self.targ_size) ] 
+								for t in xrange(self.time+1) ] 
+									for b in xrange(self.blocks_size)]
 		self.dist  = [ [ [
 						(0,0)
-							for i in xrange(dist_size)] 
-								for t in xrange(time+1) ] 
-									for b in xrange(blocks_size)]
+							for i in xrange(self.dist_size)] 
+								for t in xrange(self.time+1) ] 
+									for b in xrange(self.blocks_size)]
 	
 	
 		
 		self.gaze = [ [ 
 						(0, 0)
-							for t in xrange(time + 1)]
-								for b in xrange(blocks_size)]
+							for t in xrange(self.time + 1)]
+								for b in xrange(self.blocks_size)]
 	

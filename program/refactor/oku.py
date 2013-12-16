@@ -20,18 +20,7 @@ def oku(b):
         multiplicant =1
         multiplicant1 =1
         suma =1
-
-        x1 = min(x-bound1, antecedent)
-        x2 = min(bound2 -x, antecedent+1)
-        y1 = min(y -bound1, antecedent)
-        y2 = min(bound2 - y, antecedent+1)
-          
-        ant_size = (x1+x2)*(y1+y2) #size of antecedent cells
-        
-        xl = x-int(x1)
-        xr = x+int(x2)
-        yl = y-int(y1)
-        yr = y+int(y2)
+        (ant_size, xl, xr, yl, yr) = calc_antecedent_bounds(x,y)
         for j in range(xl, xr):
           for i in range(yl, yr):
             multiplicant *= I[b][t-1][j][i]

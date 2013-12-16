@@ -1,13 +1,21 @@
 from debug import *
 import var
 from kum import *
+from grid import Grid
+from model import Model
 
-def run(flag_run_grid = True, flag_run_inference = True, flag_run_models = True):
+def run(track_id = '"446"',
+		track_trials =['"26"', '"28"', '"42"', '"51"', '"65"'], 
+		grid=None,
+		flag_run_grid = True,
+		flag_run_inference = True,
+		flag_run_models = True):
+			
 	dprint('Starting execution of eye tracking models ..')
 	
 	if flag_run_grid:
 		dprint('Running var.py ..') 
-		var.load_vars()
+		grid = var.load_grid(track_id, track_trials)
 		
 	if flag_run_inference:
 		dprint('Runnning oku.py ..')

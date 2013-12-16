@@ -28,8 +28,7 @@ def tku(b):
         for y in xrange(Y):
           (ant_size, xl, xr, yl, yr) = calc_antecedent_bounds(x,y)
           suma1 = 0
-          #dyn_model = dynamic_target_model(t,i,xl,xr,yl,yr, ant_size)
-
+          
           for j in range(xl, xr):
             for k in range(yl, yr):
               suma1 += (target_observation_model(b,t,i,j,k)*I[b][t][j][k])
