@@ -1,8 +1,12 @@
 from __future__ import division
 
 import math
+import numpy
 #kum = knowledge update methods
 
+def dist_between_pos ((x1,y1), (x2,y2)):
+	return math.sqrt(abs((x2-x1)/4)**2 + abs((y2-y1)/4)**2)
+	
 def roundto(angle, precision = 0.5):
 	correction = 0.5 if angle > 0 else -0.5
 	return int(angle / precision + correction) * precision
@@ -17,6 +21,31 @@ def calc_max_grid(I):
 			if I[x][y] < minm:
 				minm = I[x][y]
 	return (minm, maxm)
+	
+def compute_centroid(points):
+	x = 0
+	y = 0
+	for p in points:
+		x += p[0]
+		y += p[1]
+		x /= len(points)
+		y /= len(points)
+		x = int(round(x,0))
+		y = int(round(y,0))
+		
+		return (x,y)
+
+def mult_by_pos (ar1, ar2, MAX):
+	return [ [ar1[x][y] * ar2[x][y] for y in xrange(MAX)] for x in xrange(MAX)]
+
+def add_by_pos (ar1, ar2, MAX):
+	return [[ar1[x][y] + ar2[x][y] for y in xrange(MAX)] for x in xrange(MAX)]
+
+def div_by_pos (ar1, val, MAX):
+	return [[ ar1[x][y]/4 for y in xrange(MAX) ] for x in xrange(MAX) ]
+
+def root_by_pos(ar1, root, MAX):
+	return [[ ar1[x][y]**(1/root) for y in xrange(MAX)] for x in xrange(MAX)] 
 
 
 #P(O^0_(x,y)) foreach (x,y)
@@ -33,20 +62,20 @@ def pmt(t):
 	return 0.5 
 
 #P(V^t_(x,y)|O^t_(x,y))
-def observation_model(b,t, x, y):
-	if O[b][t][x][y] == 0:
+def observation_model(g, b,t, x, y):
+	if g.O[b][t][x][y] == 0:
 		return 0.1
 	else:
 		return 0.9
 
 #P(O^t_(x,y)|M^t O^(t-1))
-def dynamic_object_model(b,t, x, y):
-	x_prev = gaze_position[b][t-1][0]
-	y_prev = gaze_position[b][t-1][1]
-	x_curr = gaze_position[b][t][0]
-	y_curr = gaze_position[b][t][1]
+def dynamic_object_model(g,b,t, x, y):
+	x_prev = g.gaze[b][t-1][0]
+	y_prev = g.gaze[b][t-1][1]
+	x_curr = g.gaze[b][t][0]
+	y_curr = g.gaze[b][t][1]
 	if x_curr == x_prev  and y_curr == y_prev:
-		if O[b][t][x][y] == 1:
+		if g.O[b][t][x][y] == 1:
 			return 0.95
 		else:
 			return 0.1
@@ -55,22 +84,22 @@ def dynamic_object_model(b,t, x, y):
       
 
 #P(O^t_(x,y)|T^t_i)
-def target_observation_model(b,t,i,x,y):
+def target_observation_model(g,b,t,i,x,y):
 	
-	result =0.25/((dist_between_pos(targets_[b][t][i],(x,y))/0.02)**2 +1)#/0.02
-	#return result
-	if O[b][t][x][y] == 1:
+	result =0.25/((dist_between_pos(g.targ[b][t][i],(x,y))/0.02)**2 +1)#/0.02
+	return result
+	if g.O[b][t][x][y] == 1:
 		return 0.5+result
 	else:
 		return 0.5-result
 
-def calc_antecedent_bounds(x,y):
+def calc_antecedent_bounds(g, x,y):
 	min_bound = 0
-	max_bound = 30
-	x1 = min(x-min_bound, antecedent)
-	x2 = min(max_bound -x, antecedent+1)
-	y1 = min(y -min_bound, antecedent)
-	y2 = min(max_bound - y, antecedent+1)
+	max_bound = g.size
+	x1 = min(x-min_bound, g.anc_size)
+	x2 = min(max_bound -x, g.anc_size+1)
+	y1 = min(y -min_bound, g.anc_size)
+	y2 = min(max_bound - y, g.anc_size+1)
 
 	ant_size = (x1+x2)*(y1+y2) #size of antecedent cells
 
@@ -81,7 +110,7 @@ def calc_antecedent_bounds(x,y):
 
 	return (ant_size, xl, xr, yl, yr)
 
-def min_max_normal(I, I_T_flag):
+def min_max_normal(I, b, I_T_flag):
 	maxv = 0
 	minv = 1
 	L = len(I)
@@ -105,8 +134,8 @@ def min_max_normal(I, I_T_flag):
 				#eliminate small values if I_T flag is set 
 				if I_T_flag:
 					diff_ = abs(int(math.log10(I[x][y]))) -280
-				if diff_ > 0:
-					I[x][y] *= 10**diff_
+					if diff_ > 0:
+						I[x][y] *= 10**diff_
 	return (minv, maxv, normal)
   
   

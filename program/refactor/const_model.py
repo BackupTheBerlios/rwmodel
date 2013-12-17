@@ -1,11 +1,4 @@
 from __future__ import division
-#-*- coding: utf-8 -*-
-#!/usr/bin/python
-#name: constant_model
-#author Erik Lux
-#date: 20131017
-#purpose: depict users gaze position 
-#modified: file will be loaded
 
 from scipy.stats import beta
 import math
@@ -39,30 +32,14 @@ def dirichlet_at_grid((px,py)):
 
 
 #const_model contains all blocks
-
-#probability of gaze position
-
-def cm():
-  CM = [ [ [ 1 for y in xrange(Y) ] for x in xrange(X) ] for t in xrange(times+1) ]
+def cm(self, grid):
   
-  for b in xrange(blocks):
-    (gx, gy) = gaze_position[b][0]
+  for b in xrange(grid_blocks_size):
+    (gx, gy) = grid.gaze[b][0]
     temp = dirichlet_at_grid((gx, gy))
-    CM[0] = mult_by_pos (CM[0], temp, X)
+    self.CM[0] = mult_by_pos (self.CM[0], temp, X)
   
-  for t in range(1,times+1):
-      CM[t] = CM[t-1]
-  return CM
-
-def cm_alldiff():
-  CM = [ [ [ 1 for y in xrange(Y) ] for x in xrange(X) ] for t in xrange(times+1) ]
-  
-  for t in range(1, times-1):
-    print t
-    for b in xrange(blocks):
-      (gx, gy) = gaze_position[b][t]
-      temp = dirichlet_at_grid((gx, gy))
-      CM[t] = mult_by_pos (CM[t], temp, X)
-  
-  return CM
+  for t in range(1,grid.time):
+      self.CM[t] = self.CM[t-1]
+  return self.CM
 

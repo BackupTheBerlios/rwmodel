@@ -10,24 +10,13 @@ from __future__ import division
 import math
 from const_model import * 
 
-#targ_model contains all blocks
-TM = [ [ [ 1 for y in xrange(Y) ] for x in xrange(X) ] for t in xrange(times+1) ]
-TM_trajectory = [ (0,0) for t in xrange(times+1) ]
-
 #P(T^t_i|C^t)
-def gaze_target_model((x,y), t, i):
-  g_x = gaze_position[0][t][0]
-  g_y = gaze_position[0][t][1]
-  result = math.exp( -(dist_between_pos((x,y), targets_[0][t][i]))**2 / 0.25)
+def gaze_target_model(g, (x,y), t, i):
+  g_x = g.gaze[0][t][0]
+  g_y = g.gaze[0][t][1]
+  result = math.exp( -(dist_between_pos((x,y), g.targ[0][t][i]))**2 / 0.25)
   result /=900
   return result
-
-#P(T^t_i|C^t)
-def gaze_target_model_pt((x,y),(x2,y2)) :
-  result = math.exp( -(dist_between_pos((x,y),(x2,y2)))**2 / 0.25)
-  return result/900
-
-
 
 def set_min_arr(ar, m):
   L = len(ar)
@@ -39,35 +28,33 @@ def set_min_arr(ar, m):
   return result
 
 #probability of gaze position
-def tm(show_traj):
-  MAX = 30
-  #const
-  #targ
-  for t in range(2, times-1):#times -1
-    temp = [[1 for y in xrange(MAX) ] for x in xrange(MAX)]
+def tm(self, show_traj):
+  g = self.grid
+  for t in range(2, g.time):#times -1
+    temp = [[1 for x in xrange(g.X) ] for y in xrange(g.Y)]
     targ = [0,1,2,3]
     for ind in xrange(len(targ)):#targets
       i = targ[ind]
-      GTM = [[ gaze_target_model((x,y),t,i) for y in xrange(MAX) ] for x in xrange(MAX)] 
+      GTM = [ [ 
+				gaze_target_model(g, (x,y),t,i)
+					for y in xrange(g.Y) ]
+						for x in xrange(g.X)] 
       #temp =  mult_by_pos(GTM, temp, MAX)
-      TM[t] = mult_by_pos(TM[t], target_tib[0][i][t],MAX)
-      TM[t] = mult_by_pos(TM[t], GTM, MAX)
+      self.TM[t] = mult_by_pos(self.TM[t], g.IT_bit[0][i][t],g.size)
+      self.TM[t] = mult_by_pos(self.TM[t], GTM, g.size)
 
     
     #TM[t] = root_by_pos(TM[t], len(targets_), MAX)
-    TM[t] = mult_by_pos(TM[t], CM[t], MAX)
+    self.TM[t] = mult_by_pos(self.TM[t], self.CM[t], g.size)
      
-    (minm, maxm) = calc_max(TM[t])
+    (minm, maxm) = calc_max(self.TM[t])
      
     if show_traj:
-      for x in xrange(MAX):
-        for y in xrange(MAX):
-          if TM[t][x][y] != maxm:
-            TM[t][x][y] = 0
+      for x in xrange(g.size):
+        for y in xrange(g.size):
+          if self.TM[t][x][y] != maxm:
+            self.TM[t][x][y] = 0
           else:
-            TM_trajectory[t] = (x,y)
-
-
-    
+            self.TM_trajectory[t] = (x,y)
   return TM
 
