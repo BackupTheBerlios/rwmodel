@@ -7,54 +7,45 @@ from __future__ import division
 #purpose: incrementally update knowledge over targets
 #modification: using my own class SmallFloat for working with very small or big probabilities probabilities
 
-#import imp
-#imp.load_source('grid', 'grid.py')
 
-#from grid import *
-import time
-import math
-target_tib = [ [ [ [ [0 for y in xrange(X)] for x in xrange(Y)] for t in xrange(times+1)] for i in xrange(targets)] for b in xrange(blocks)]
-
-
-def tku(b):
+def tku(grid, b):
   print "Target knowledge update started ..."
   start_ = time.time()
-  target_i= [[[0 for x in xrange(Y)] for y in xrange(X)] for i in xrange(targets)]
+  IT_i= [ [ [ 0
+			for x in xrange(grid.X) ]
+				for y in xrange(grid.Y) ]
+					for i in xrange(grid.targ_size) ]
 
-  for t in range(2,times+1 ):  #times+1
+  for t in range(2,grid.time+1 ):  #times+1
     print 'time is:' , t
-    for i in xrange(targets):
-      for x in xrange(X):
-        for y in xrange(Y):
+    for i in xrange(grid.targ_size):
+      for x in xrange(grid.X):
+        for y in xrange(grid.Y):
           (ant_size, xl, xr, yl, yr) = calc_antecedent_bounds(x,y)
           suma1 = 0
           
           for j in range(xl, xr):
             for k in range(yl, yr):
-              suma1 += (target_observation_model(b,t,i,j,k)*I[b][t][j][k])
+              suma1 += (target_observation_model(b,t,i,j,k)*grid.I[b][t][j][k])
           suma1 /= ant_size
-          target_i[i][x][y] = suma1
-          target_tib[b][i][t][x][y] = suma1
+          IT_i[i][x][y] = suma1
+          grid.IT_bit[b][i][t][x][y] = suma1
     print "over targets ..."
 
-    for x in xrange(X):
-      for y in xrange(Y):
+    for x in xrange(grid.X):
+      for y in xrange(grid.Y):
         suma2 = 0
-        for i in xrange(targets):
-          suma2 += target_i[i][x][y]#*I_T[t-1][x][y]
-        suma2 /=targets
-        I_T[b][t][x][y] = suma2
-    min_max_normal(I_T[b][t], True)#normalize(b,t)
+        for i in xrange(grid.targ_size):
+          suma2 += IT_i[i][x][y]#*I_T[t-1][x][y]
+        suma2 /=grid.targ_size
+        grid.IT[b][t][x][y] = suma2
+    min_max_normal(grid.IT[b][t], True)#normalize(b,t)
   
+  grid.flag_IT = True
   end_ = time.time()
   print "Target knowledge update finished ..."
   print 'Elapsed time is ',(end_-start_)/60, 'minutes'
   
 
-f = open('tku.out', 'w')
-for b in xrange(1):#blocks
-  tku(b)
 
-
-f.close()
 

@@ -6,24 +6,23 @@ from __future__ import division
 #date: 20130615
 #purpose: incrementally update knowledge over the grid
 
-import time
 
-def oku(b):
+def oku(grid, b):
   print "Object knowledge update started ...\n"
   _start = time.time()
-  for t in xrange(2,times+1):    #!!!times+1
+  for t in xrange(2,grid.time+1):    #!!!times+1
     #incremental phase
     print "Suma calculation started ...\n"
      
-    for x in xrange(X):
-      for y in xrange(Y):
+    for x in xrange(grid.X):
+      for y in xrange(grid.Y):
         multiplicant =1
         multiplicant1 =1
         suma =1
         (ant_size, xl, xr, yl, yr) = calc_antecedent_bounds(x,y)
         for j in range(xl, xr):
           for i in range(yl, yr):
-            multiplicant *= I[b][t-1][j][i]
+            multiplicant *= grid.I[b][t-1][j][i]
         multiplicant = multiplicant**(1/ant_size)
 
         for j in range(x-x1, x+x2):
@@ -34,12 +33,10 @@ def oku(b):
         suma = suma **(1/ant_size)
         suma*= observation_model(b,t,x,y)
         #suma /= ant_size
-        I[b][t][x][y] = suma
+        grid.I[b][t][x][y] = suma
     
-    min_max_normal(I[b][t], False)#normalize(b,t)
+    min_max_normal(grid.I[b][t], False)#normalize(b,t)
     print "Time: ", t
   print "Object knowledge update successfully finished ..."
-#f = open('oku.out', 'w')
-for b in xrange(1):
-  oku(b)
-#f.close()
+  grid.flag_I = True
+
