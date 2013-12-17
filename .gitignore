@@ -1,0 +1,8 @@
+#python specific
+*.pyc
+
+##generic files to ignore
+*~
+*.swp
+*.out
+*.lock
