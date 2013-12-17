@@ -1,7 +1,7 @@
 from __future__ import division
 import numpy
 import time
-from kum import *
+from ku_methods import *
 #definition of grid interface
 class Grid:
 	def __init__(self, time, blocks_size, anc_size=1, size=30, targ_size=4, dist_size=4):

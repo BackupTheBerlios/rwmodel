@@ -1,7 +1,7 @@
 import csv
 import numpy
 from debug import *
-from kum import *
+from ku_methods import *
 from grid import *
 
 def set_variables(grid, rows, b, time):
