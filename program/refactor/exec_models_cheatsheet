@@ -1,0 +1,29 @@
+import imp
+import exec_models as exe
+
+exec.run()
+
+'''exe = imp.reload(exec_models)'''
+exe.run(flag_run_grid=False)
+exe.run(flag_run_grid=False, flag_run_inference1=False, flag_run_inference2=False)
+
+exe.run(grid=g, flag_run_grid=False, flag_run_inference1= False, flag_run_inference2=False)
+
+
+'''
+g = exe.run()
+flag_run_grid = True,
+flag_run_inference1 = True,
+flag_run_inference2 = True,
+flag_exit_loaded = False,
+flag_exit_inference1 = False,
+flag_exit_inference2 = False,
+flag_run_models = True):
+'''
+
+
+if error 
+reload wrong module
+reload exec_files
+from exec_files import run
+exec run
