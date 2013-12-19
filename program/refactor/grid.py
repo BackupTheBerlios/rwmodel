@@ -61,6 +61,65 @@ class Grid:
 						(0, 0)
 							for t in xrange(self.time + 1)]
 								for b in xrange(self.blocks_size)]
+		
+		#support for plotting device
+		self.arr =  [[0 for x in xrange(self.X) ] for y in xrange (self.Y)]
+		
+		self.ticks_labels = [ i for i in range(-15,16,5)]
+		
+	def prepare_map(self, time, inference, block = 0, exp_flag = False):
+		g = self.grid
+		if inference ==1:
+			M = g.I[block]
+		else:
+			M = g.IT[block]
+			
+		if (exp_flag):
+			ar = gen_exp(M,time)
+		else:
+			ar = M[time]
+	
+		data = np.asarray(ar)
+		heatmap = plt.pcolor(data)
+		plt.xlabel('time: ' + str(time) + 
+			 \' targ: ' + str(g.targ[0][time]) +' (black)'+ '\n' + 
+			 \'dist: '+ str(g.dist[0][time]) + ' (transparent)', fontsize=10)
+		plt.colorbar(heatmap)
+		
+		for i in xrange(g.targ_size):
+			circle1 = matplotlib.patches.Circle((g.targ[0][time][i][1]+1,
+													g.targ[0][time][i][0]+1), radius=0.5, 
+														color='k', zorder=10)
+			gca().add_patch(circle1) 
+			
+		for i in xrange(g.dist_size):
+			circle1 = matplotlib.patches.Circle((g.dist[0][time][i][1]+1, 
+													g.dist[0][time][i][0]+1), 
+														radius=0.5, color='k', zorder=10,fill=False)
+			gca().add_patch(circle1) 
+
+	def plot_map (I, time, inference=1, exp_flag=False):
+		prepare_map(I, time, inference, exp_flag)
+
+		a = plt.gca()
+
+		a.set_xticklabels(ticks_labels)
+		a.set_yticklabels(ticks_labels)
+		
+		plt.show()
+		plt.clf()
+
+	def write_map(I, time, inference=1, filename, exp_flag=False):
+		prepare_map(I, time, inference, exp_flag)
+		a = plt.gca()
+
+		a.set_xticklabels(ticks_labels)
+		a.set_yticklabels(ticks_labels)
+		
+		
+		plt.savefig(str(filename) + '.png')
+		plt.clf()
+
 								
 	
 	def oku(self, b):

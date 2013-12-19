@@ -4,6 +4,14 @@ import math
 import numpy
 #kum = knowledge update methods
 
+def gen_exp(I, time):
+	I = I[time]
+	
+	for x in xrange(len(I)):
+		for y in xrange(len(I[0])):
+			model.grid.arr[x][y] = int(math.log10(I[x][y]))
+	return  model.grid.arr 
+
 def dist_between_pos ((x1,y1), (x2,y2)):
 	return math.sqrt(abs((x2-x1)/4)**2 + abs((y2-y1)/4)**2)
 	
