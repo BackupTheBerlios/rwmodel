@@ -5,6 +5,8 @@ from const_model import *
 from targ_model import *
 from uncertain_model import *
 
+import types
+
 #definition of grid interface
 class Abstract_model(object):
 	def __init__(self, grid, ku_blocks_size):
@@ -62,16 +64,14 @@ class Abstract_model(object):
 			min_v = min_v_default
 			min_arg = min_arg_default
 			
-	def compute(self):
-		print 'Computing model ..'
-
+	
 class Model(Abstract_model):
 	def __init__(self, grid, ku_blocks_size, compute_method):
 		super(Model, self).__init__(grid, ku_blocks_size)
-		self.compute = compute_method
+		self.compute = types.MethodType(compute_method, self)
 		
 	def compute(self):
-		return self.compute()
+		return self.compute(self)
 	
 		
 						

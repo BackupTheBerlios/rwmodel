@@ -1,5 +1,6 @@
 from __future__ import division
 import math
+from ku_methods import *
 
 #P(T^t_i|C^t)
 def gaze_target_model(g, (x,y), t, i):
@@ -19,8 +20,8 @@ def set_min_arr(ar, m):
 	return result
 
 #probability of gaze position
-def tm(model):
-	g = model.grid
+def tm(self):
+	g = self.grid
 	for t in range(2, g.time):#times -1
 		temp = [[1 for x in xrange(g.X) ] for y in xrange(g.Y)]
 		targ = [0,1,2,3]
@@ -31,12 +32,12 @@ def tm(model):
 							for y in xrange(g.Y) ]
 								for x in xrange(g.X)] 
 			#temp =  mult_by_pos(GTM, temp, MAX)
-			model.M[t] = mult_by_pos(model.M[t], g.IT_bit[0][i][t],g.size)
-			model.M[t] = mult_by_pos(model.M[t], GTM, g.size)
+			self.M[t] = mult_by_pos(self.M[t], g.IT_bit[0][i][t],g.size)
+			self.M[t] = mult_by_pos(self.M[t], GTM, g.size)
 
 		#TM[t] = root_by_pos(TM[t], len(targets_), MAX)
-		model.M[t] = mult_by_pos(model.M[t], g.CM[t], g.size)
+		self.M[t] = mult_by_pos(self.M[t], g.CM.M[t], g.size)
 		
-		(arg_min, arg_max) = calc_max_grid(model.M[t], flag_max_val=True)
+		(arg_min, arg_max) = calc_max_grid(self.M[t], flag_arg_max=True)
      
-		model.M_traj[t] = arg_min
+		self.M_traj[t] = arg_min
