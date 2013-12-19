@@ -1,5 +1,10 @@
 from __future__ import division
-import numpy
+import numpy as np
+from pylab import *
+from matplotlib.patches import Circle, Wedge
+import math
+
+
 import time
 from ku_methods import *
 #definition of grid interface
@@ -22,14 +27,14 @@ class Grid:
 								for b in xrange(self.blocks_size) ] 
 		
 		self.I= [ [ [ [
-					numpy.random.uniform() 
+					np.random.uniform() 
 					for x in xrange(self.X)]
 						for y in xrange(self.Y) ]
 							for t in xrange(self.time +1)]
 								for b in xrange(self.blocks_size)]
 		
 		self.IT= [ [ [ [
-					numpy.random.uniform()
+					np.random.uniform()
 						for x in xrange(self.X)]
 							for y in xrange(self.Y)]
 								for t in xrange(self.time +1)]
@@ -67,13 +72,13 @@ class Grid:
 		
 		self.ticks_labels = [ i for i in range(-15,16,5)]
 		
-	def prepare_map(self, time, inference, block = 0, exp_flag = False):
-		g = self.grid
+	def prepare_map(self, time, inference, block, exp_flag):
+		
 		if inference ==1:
-			M = g.I[block]
+			M = self.I[block]
 		else:
-			M = g.IT[block]
-			
+			M = self.IT[block]
+		
 		if (exp_flag):
 			ar = gen_exp(M,time)
 		else:
@@ -81,45 +86,50 @@ class Grid:
 	
 		data = np.asarray(ar)
 		heatmap = plt.pcolor(data)
-		plt.xlabel('time: ' + str(time) + 
-			 \' targ: ' + str(g.targ[0][time]) +' (black)'+ '\n' + 
-			 \'dist: '+ str(g.dist[0][time]) + ' (transparent)', fontsize=10)
+		plt.xlabel('time: ' + str(time) 
+			 + ' targ: ' + str(self.targ[0][time]) +' (black)'+ '\n' 
+			 + 'dist: '+ str(self.dist[0][time]) + ' (transparent)', fontsize=10)
 		plt.colorbar(heatmap)
 		
-		for i in xrange(g.targ_size):
-			circle1 = matplotlib.patches.Circle((g.targ[0][time][i][1]+1,
-													g.targ[0][time][i][0]+1), radius=0.5, 
+		for i in xrange(self.targ_size):
+			circle1 = matplotlib.patches.Circle((self.targ[0][time][i][1]+1,
+													self.targ[0][time][i][0]+1), radius=0.5, 
 														color='k', zorder=10)
 			gca().add_patch(circle1) 
 			
-		for i in xrange(g.dist_size):
-			circle1 = matplotlib.patches.Circle((g.dist[0][time][i][1]+1, 
-													g.dist[0][time][i][0]+1), 
+		for i in xrange(self.dist_size):
+			circle1 = matplotlib.patches.Circle((self.dist[0][time][i][1]+1, 
+													self.dist[0][time][i][0]+1), 
 														radius=0.5, color='k', zorder=10,fill=False)
 			gca().add_patch(circle1) 
 
-	def plot_map (I, time, inference=1, exp_flag=False):
-		prepare_map(I, time, inference, exp_flag)
+	def plot_time (self, time, inference=1, block = 0, exp_flag=False):
+		self.prepare_map(time, inference,block, exp_flag)
 
 		a = plt.gca()
 
-		a.set_xticklabels(ticks_labels)
-		a.set_yticklabels(ticks_labels)
+		a.set_xticklabels(self.ticks_labels)
+		a.set_yticklabels(self.ticks_labels)
 		
 		plt.show()
 		plt.clf()
 
-	def write_map(I, time, inference=1, filename, exp_flag=False):
-		prepare_map(I, time, inference, exp_flag)
+	def write_time(self,time, filename, inference=1, block =0, exp_flag=False):
+		self.prepare_map(time, inference, block, exp_flag)
 		a = plt.gca()
 
-		a.set_xticklabels(ticks_labels)
-		a.set_yticklabels(ticks_labels)
+		a.set_xticklabels(self.ticks_labels)
+		a.set_yticklabels(self.ticks_labels)
 		
 		
 		plt.savefig(str(filename) + '.png')
 		plt.clf()
-
+		
+	def write(self,start_filename,inference=1, exp_flag=False):
+		for t in xrange(self.time):
+			print t
+			self.write_time(inference, start_filename, exp_flag= exp_flag)
+			start_filename +=1
 								
 	
 	def oku(self, b):

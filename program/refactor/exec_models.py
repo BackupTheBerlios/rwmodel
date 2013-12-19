@@ -64,7 +64,7 @@ def run(track_id = '"446"',
 		dprint('Running model.py ..')
 		grid.CM = Model(grid, ku_blocks_size,cm)
 		dprint('Computing trajectories of naive strategies')
-		#grid.CM.naive_strategy_traj()
+		grid.CM.naive_strategy_traj()
 		
 		dprint('Running const_model.py ..')
 		grid.CM.compute()
@@ -78,3 +78,5 @@ def run(track_id = '"446"',
 		grid.UM.compute()
 		
 	dprint('Execution of eye tracking models finished ..')
+	
+	return grid
