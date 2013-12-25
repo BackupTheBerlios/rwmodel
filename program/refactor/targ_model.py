@@ -39,5 +39,6 @@ def tm(self):
 		self.M[t] = mult_by_pos(self.M[t], g.CM.M[t], g.size)
 		
 		(arg_min, arg_max) = calc_max_grid(self.M[t], flag_arg_max=True)
-     
-		self.M_traj[t] = arg_min
+		
+		self.M_traj[t] = arg_max
+    

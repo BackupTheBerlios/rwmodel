@@ -23,7 +23,7 @@ def calc_max_grid(I, flag_arg_max=False):
 	size = len(I)
 	max_val = 0
 	arg_max_val = (0,0)
-	min_val = 1
+	min_val = 10
 	arg_max_val = (0,0)
 	
 	for x in xrange(size):

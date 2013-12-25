@@ -30,7 +30,7 @@ def um(self):
        
 		(arg_min, arg_max) = calc_max_grid(self.M[t], flag_arg_max=True)
 		
-		self.M_traj[t] = arg_min
+		self.M_traj[t] = arg_max
     
 		
 
