@@ -26,9 +26,9 @@ def dirichlet_at_grid(g,(px,py)):
 #const_model contains all blocks
 def cm(self):
 	g = self.grid
-	for b in xrange(self.ku_blocks_size):
+	for b in xrange(g.blocks_size):
 		(gx, gy) = g.gaze[b][0]
-		temp = dirichlet_at_grid(g,(gy, gx))
+		temp = dirichlet_at_grid(g,(gx, gy))
 		self.M[0] = mult_by_pos (self.M[0], temp, g.size)
 	for t in range(1,g.time):
 		self.M[t] = self.M[t-1]

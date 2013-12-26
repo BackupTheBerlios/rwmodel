@@ -103,7 +103,7 @@ class Abstract_model(object):
 		
 		label = 'gaze: '
 		for i in xrange(g.blocks_size):
-			label += str(i) + '('+str(g.gaze[i][time][0]-15)+','+str(g.gaze[i][time][1]-15)+')' + ' '
+			label += str(i) + '('+str(g.gaze[i][time][1]-15)+','+str(g.gaze[i][time][0]-15)+')' + ' '
 		
 		plt.xlabel(label +' (black)'+'\n' +'targ (green)' + '\n' +'dist (red)', fontsize=10)
 		
@@ -115,17 +115,17 @@ class Abstract_model(object):
 		
 		for b in xrange(g.blocks_size):
 			print g.gaze[b][time]
-			self.plot_cross(plt, (g.gaze[b][time][1], g.gaze[b][time][0]),0.3, 'k', cross_ord)   
+			self.plot_cross(plt, (g.gaze[b][time][0], g.gaze[b][time][1]),0.3, 'k', cross_ord)   
 		
 		for i in xrange(g.targ_size):
-			circle1 = matplotlib.patches.Circle((g.targ[0][time][i][0], 
-													g.targ[0][time][i][1]), 
+			circle1 = matplotlib.patches.Circle((g.targ[0][time][i][1], 
+													g.targ[0][time][i][0]), 
 														radius=obj_rad, color='g', zorder=obj_ord)
 			gca().add_patch(circle1)
 			
 		for i in xrange(g.dist_size):
-			circle1 = matplotlib.patches.Circle((g.dist[0][time][i][0],
-													g.dist[0][time][i][1]), 
+			circle1 = matplotlib.patches.Circle((g.dist[0][time][i][1],
+													g.dist[0][time][i][0]), 
 														radius=obj_rad, color='r', zorder=obj_ord)
 			gca().add_patch(circle1) 
 			
@@ -133,16 +133,16 @@ class Abstract_model(object):
 		pol_rad = 0.6
 		pts = self.gen_polygon_pt((15,15),pol_rad)
 		plg_center = matplotlib.patches.Polygon(pts, color='w',edgecolor='k', zorder=pol_ord)
-		pts = self.gen_polygon_pt((g.CM.centroid_targets_traj[time][0], 
-								g.CM.centroid_targets_traj[time][1]), 
+		pts = self.gen_polygon_pt((g.CM.centroid_targets_traj[time][1], 
+								g.CM.centroid_targets_traj[time][0]), 
 									pol_rad)
 		plg_centroid_targ = matplotlib.patches.Polygon(pts, color='g', edgecolor='k', zorder=pol_ord)
-		pts = self.gen_polygon_pt((g.CM.centroid_objects_traj[time][0],
-								g.CM.centroid_objects_traj[time][1]), 
+		pts = self.gen_polygon_pt((g.CM.centroid_objects_traj[time][1],
+								g.CM.centroid_objects_traj[time][0]), 
 									pol_rad)
 		plg_centroid_obj = matplotlib.patches.Polygon(pts, color='r', edgecolor='k', zorder=pol_ord)
-		pts = self.gen_polygon_pt((g.CM.crowding_objects_traj[time][0], 
-								g.CM.crowding_objects_traj[time][1]),
+		pts = self.gen_polygon_pt((g.CM.crowding_objects_traj[time][1], 
+								g.CM.crowding_objects_traj[time][0]),
 									pol_rad)
 		plg_crowding = matplotlib.patches.Polygon(pts, color='orange', edgecolor='k', zorder=pol_ord)
 		
@@ -158,6 +158,7 @@ class Abstract_model(object):
 
 		a.set_xticklabels(self.grid.ticks_labels)
 		a.set_yticklabels(self.grid.ticks_labels)
+		
 		plt.show()
 		plt.clf()
 		
@@ -168,6 +169,7 @@ class Abstract_model(object):
 
 		a.set_xticklabels(self.grid.ticks_labels)
 		a.set_yticklabels(self.grid.ticks_labels)
+		
 		plt.show()
 		plt.clf()
 	
@@ -179,6 +181,7 @@ class Abstract_model(object):
 		a.set_xticklabels(self.grid.ticks_labels)
 		a.set_yticklabels(self.grid.ticks_labels)
 		
+		
 		plt.savefig(str(filename) + '.png')
 		plt.clf()
 	
@@ -186,6 +189,7 @@ class Abstract_model(object):
 		for t in xrange(self.grid.time):
 			print t
 			self.write_traj_time(t, int(file_num)+t, exp_flag) 
+			
 
 	def write_time(self, time, filename,exp_flag=False):
 		self.prepare_model(time,exp_flag)
@@ -194,6 +198,7 @@ class Abstract_model(object):
 
 		a.set_xticklabels(self.grid.ticks_labels)
 		a.set_yticklabels(self.grid.ticks_labels)
+		
 		
 		plt.savefig(str(filename) + '.png')
 		plt.clf()

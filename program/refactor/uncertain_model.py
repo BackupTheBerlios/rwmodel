@@ -15,10 +15,12 @@ def um(self):
 		arr = g.I[0][t]
     
 		#domain specific code, remove if code changed
+		'''
 		for x in xrange(g.X):
 			for y in xrange(g.Y):
-				if arr[x][y] > 0.0120:
-					arr[x][y] = 0.0120 
+				if arr[x][y] > 0.0200:
+					arr[x][y] = 0.0200
+		'''
     
 		interval = calc_max_grid(arr)
 		print interval[0], interval[1]

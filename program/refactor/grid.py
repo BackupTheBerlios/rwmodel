@@ -9,7 +9,7 @@ import time
 from ku_methods import *
 #definition of grid interface
 class Grid:
-	def __init__(self, time, blocks_size, anc_size=1, size=30, targ_size=4, dist_size=4):
+	def __init__(self, time, blocks_size, anc_size=3, size=30, targ_size=4, dist_size=4):
 		self.size = size
 		self.X = size
 		self.Y = size
