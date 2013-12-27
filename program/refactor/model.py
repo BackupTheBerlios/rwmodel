@@ -72,6 +72,16 @@ class Abstract_model(object):
 			min_v = min_v_default
 			min_arg = min_arg_default
 			
+	def compare_paths (self):
+		result = []
+		for b in xrange(self.grid.blocks_size):
+			suma = 0
+			for t in xrange(self.grid.time):
+				suma += dist_between_pos(self.M_traj[t], self.grid.gaze[b][t])
+			result.append(suma/self.grid.time)
+		return result
+		
+			
 	def gen_polygon_pt(self, (x,y), rad):
 		return [(x-rad, y), (x, y-rad),  (x+rad, y),(x, y+rad)]
 
