@@ -86,6 +86,7 @@ class Abstract_model(object):
 		
 		if flag_traj:
 			self.arr[self.M_traj[time][0]][self.M_traj[time][1]] = 1
+			self.arr[g.UM.M_traj[time][0]][g.UM.M_traj[time][1]] = 1
 			ar = self.arr
 			
 		else:
@@ -98,6 +99,7 @@ class Abstract_model(object):
 		
 		if flag_traj:
 			self.arr[self.M_traj[time][0]][self.M_traj[time][1]] = 0
+			self.arr[g.UM.M_traj[time][0]][g.UM.M_traj[time][1]] = 0
 			
 		heatmap = plt.pcolor(data)
 		
