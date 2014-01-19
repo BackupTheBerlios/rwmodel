@@ -127,7 +127,7 @@ class Abstract_model(object):
 		
 		for b in xrange(g.blocks_size):
 			print g.gaze[b][time]
-			self.plot_cross(plt, (g.gaze[b][time][1], g.gaze[b][time][0]),0.3, 'k', cross_ord)   
+			self.plot_cross(plt, (g.gaze[b][time][0], g.gaze[b][time][1]),0.3, 'k', cross_ord)   
 		
 		for i in xrange(g.targ_size):
 			circle1 = matplotlib.patches.Circle((g.targ[0][time][i][1], 
