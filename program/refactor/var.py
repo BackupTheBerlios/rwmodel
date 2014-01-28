@@ -6,10 +6,12 @@ from grid import *
 
 def set_variables(grid, rows, b, time):
 	for t in xrange(time):
-		x = roundto(float(rows[t][22]), 0.25)
-		y = roundto(float(rows[t][23]), 0.25)
-		x = int(x + 15)
-		y = int(y + 15)
+		x = float(rows[t][22])
+		y = float(rows[t][23])
+		x = int(round(x))
+		y = int(round(y))
+		x += 15
+		y += 15
 		grid.gaze[b][t] = (x, y)
 		grid.time_eye[b][t] = rows[t][24]
 		counter = 0 #targets counter
