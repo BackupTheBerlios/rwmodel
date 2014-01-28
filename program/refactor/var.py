@@ -11,6 +11,7 @@ def set_variables(grid, rows, b, time):
 		x = int(x + 15)
 		y = int(y + 15)
 		grid.gaze[b][t] = (x, y)
+		grid.time_eye[b][t] = rows[t][24]
 		counter = 0 #targets counter
 		for i in range(6, 21, 2):
 			x = roundto(float(rows[t][i]), 0.25)
@@ -49,7 +50,7 @@ def load_grid(track_id, track_trials):
 			time = len(b)
 
 	print 'time', time
-	grid = Grid(time, blocks_size)
+	grid = Grid(time, track_id, track_trials)
 	
 	for b in xrange(blocks_size):#blocks
 		rows = blocks_[b]

@@ -9,12 +9,14 @@ import time
 from ku_methods import *
 #definition of grid interface
 class Grid:
-	def __init__(self, time, blocks_size, anc_size=3, size=30, targ_size=4, dist_size=4):
+	def __init__(self, time, track_id, track_trials, anc_size=3, size=30, targ_size=4, dist_size=4):
 		self.size = size
 		self.X = size
 		self.Y = size
 		self.anc_size = anc_size
-		self.blocks_size = blocks_size
+		self.track_id = track_id
+		self.track_trials = track_trials
+		self.blocks_size = len(track_trials)
 		self.targ_size = targ_size;
 		self.dist_size = dist_size;
 		self.time = time
@@ -66,6 +68,19 @@ class Grid:
 						(0, 0)
 							for t in xrange(self.time + 1)]
 								for b in xrange(self.blocks_size)]
+								
+		self.time_eye = [ [ 
+				0
+					for t in xrange(self.time + 1)]
+						for b in xrange(self.blocks_size)]
+
+	
+	def clear_space(self):
+		self.space = [ [ [
+			0
+			for y in xrange(self.dy)]
+				for x in xrange(self.dx)]
+					for t in xrange(self.dt)] 
 		
 		#support for plotting device
 		self.arr =  [[0 for x in xrange(self.X) ] for y in xrange (self.Y)]
