@@ -3,6 +3,8 @@ import math
 import numpy
 import sys
 import scipy.stats
+import numpy as np
+from pylab import *
 
 def print_gaussian(g):
 	tsize = len(g)
@@ -51,15 +53,17 @@ class Space:
 		
 		self.datax = [ [ [
 			0 
-			for x in xrange(self.xysize) ]
-				for t in xrange(self.tsize) ]
-					for y in xrange(self.xysize) ]
+			for t in xrange(self.tsize) ]
+				for y in xrange(self.xysize) ]
+					for x in xrange(self.xysize) ]
+					
 		
 		self.datay = [ [ [
 			0 
-			for y in xrange(self.xysize) ]
-				for t in xrange(self.tsize) ]
-					for x in xrange(self.xysize) ]
+			for t in xrange(self.tsize) ]
+				for x in xrange(self.xysize) ]
+					for y in xrange(self.xysize) ]
+					
 					
 		
 		self.scanpath = []
@@ -73,7 +77,7 @@ class Space:
 			
 			if (tindex -t) > 1:
 				self.scanpath.append((xprev, yprev, 1))
-				print tindex, ' ', x, ' ' , y, ' ', t, ' ', self.data[t][xprev][yprev]
+				#print tindex, ' ', x, ' ' , y, ' ', t, ' ', self.data[t][xprev][yprev]
 				continue
 			else:
 				x = scanpath[t2][0]
@@ -81,7 +85,7 @@ class Space:
 				xprev = x
 				yprev = y
 				self.scanpath.append((x, y, 1))
-				print tindex, ' ', x, ' ' , y, ' ', t, ' ', self.data[t][x][y]
+				#print tindex, ' ', x, ' ' , y, ' ', t, ' ', self.data[t][x][y]
 			t2+=1
 			
 			
@@ -89,8 +93,12 @@ class Space:
 		print('\n')
 		print 'tsize', self.tsize
 	
-	def reindex():
-		for t in xrange(
+	def reindex(self):
+		for t in xrange(self.tsize):
+			for x in xrange(self.xysize):
+				for y in xrange(self.xysize):
+					self.datax[x][y][t] = self.data[t][x][y]
+					self.datay[y][x][t] = self.data[t][x][y]
 	
 	def smooth(self,G):
 		dt = len(G)/2
@@ -163,10 +171,13 @@ class Nss:
 			
 			space.smooth(G)
 			
-			space.show()
+			space.reindex()
 			
-			sr.serialize(space, str(self.grid.track_id) + '_'
-				+ str(self.grid.track_trials[b]) + '.ser')
+			to_show = np.asarray(space.datax[14])
+			plt.pcolor(to_show)
+			plt.show()
+			#sr.serialize(space, str(self.grid.track_id) + '_'
+			#	+ str(self.grid.track_trials[b]) + '.ser')
 				
 	
 				
