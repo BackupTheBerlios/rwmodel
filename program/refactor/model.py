@@ -79,7 +79,9 @@ class Abstract_model(object):
 			for t in xrange(self.grid.time):
 				suma += dist_between_pos(self.M_traj[t], self.grid.gaze[b][t])
 			result.append(suma/self.grid.time)
-		return result
+		
+		for r in result:
+			print r
 		
 			
 	def gen_polygon_pt(self, (x,y), rad):
