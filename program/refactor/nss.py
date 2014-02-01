@@ -212,7 +212,7 @@ class Nss:
 			
 			result.append((suma / nss_space.tsize))
 		
-		for r in xrange(len(result)):
+		for r in result:
 			print r
 	
 	def compute_nss_subroutine(self, index, flag_model = True):
