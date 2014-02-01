@@ -188,32 +188,33 @@ class Nss:
 		self.time = grid.time
 	
 	def compute_nss(self, index= 0, flag_model= True):
-		scanpath = []
-		if(flag_model == False):
-			scanpath = self.get_scanpath_from_trial_traj(index)
-		else:
-			scanpath = self.get_scanpath_from_model_traj(self.grid.TM.M_traj)
+		result = []
+		for index in xrange(self.blocks_size):
+			scanpath = []
+			if(flag_model == False):
+				scanpath = self.get_scanpath_from_trial_traj(index)
+			else:
+				scanpath = self.get_scanpath_from_model_traj(self.grid.TM.M_traj)
+				
+			nss_space = Space(self.size, scanpath)
+			print 'Nss space'
 			
-		nss_space = Space(self.size, scanpath)
-		print 'Nss space'
-		
-		gaussian_space = self.compute_nss_subroutine(index, flag_model)
-		print 'Gaussian space'
-		
-		suma = 0
-		for t in xrange(nss_space.tsize):
-			for x in xrange(nss_space.xysize):
-				for y in xrange(nss_space.xysize):
-					suma += nss_space.data[t][x][y] * gaussian_space.data[t][x][y]
-		
-		print 'Result'
-		return suma / nss_space.tsize
-					
-					
-		
-		
+			gaussian_space = self.compute_nss_subroutine(index, flag_model)
+			print 'Gaussian space'
 			
+			suma = 0
+			for t in xrange(nss_space.tsize):
+				for x in xrange(nss_space.xysize):
+					for y in xrange(nss_space.xysize):
+						suma += nss_space.data[t][x][y] * gaussian_space.data[t][x][y]
+			
+			print 'Result'
+			
+			result.append((suma / nss_space.tsize))
 		
+		for r in xrange(len(result)):
+			print r
+	
 	def compute_nss_subroutine(self, index, flag_model = True):
 		
 		s = Space(self.size)
