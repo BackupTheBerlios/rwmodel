@@ -1,0 +1,90 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath,mathtools}
+\begin{document}
+
+\begin{equation*}
+\begin{split}
+\sum
+	_{i=1}
+	^{10}
+	{ t_i }
+\end{split}
+\end{equation*}
+
+\begin{equation}
+\prod
+	_{i=1}
+	^{10}
+	{ t_i }
+\end{equation}
+
+\begin{equation}
+a \propto b
+\end{equation}
+
+\begin{equation}
+P(O^{0})
+\end{equation}
+
+\begin{equation}
+\begin{aligned}
+\prod
+	_{(x,y) \in G}
+	\left[
+		\begin{array}{l}
+		 P(O_{(x,y)}^{t}|M^{t} O^{t-1}) \\
+		\times 
+		P(V_{(x,y)}^{t} | O_{(x,y)}^{t}) 
+		\end{array}
+	\right]
+\end{aligned}
+\end{equation}
+
+\begin{equation}
+\prod
+	_{ t=1}
+	 ^{t_{max}}
+	 {
+		P(O^{t}V^{t}M^{t}|O^{t-1})
+	}
+\end{equation}
+
+
+\begin{equation}
+\prod
+	_{(x,y) \in G} 
+	{
+		 P(O_{(x,y)}^{0})
+	}
+\end{equation}
+
+\begin{equation}
+\begin{array}{l}
+\left.
+P(O^{t} | V^{1\rightarrow t}M^{1\rightarrow t}) 
+\right. \\
+\left.
+ \propto
+\displaystyle\prod
+	_{(x,y) \in G}
+	{ 	 
+		P (V_{(x,y)}^{t} | O_{(x,y)}^{t} )
+	 } 
+\right. \\
+\quad\times	
+\displaystyle\sum
+	_{O^{t-1}}
+	\left[
+		\begin{array}{l}
+		\displaystyle\prod_{(x,y) \in G} {  P (O_{(x,y)}^{t} | M^{t} O^{t-1} ) }  \\ 
+		\times 
+		P(O^{t-1} | V^{1\rightarrow t-1}M^{1\rightarrow t-1})
+		\end{array}
+	\right]
+\end{array}
+\end{equation}
+
+
+
+
+\end{document}
